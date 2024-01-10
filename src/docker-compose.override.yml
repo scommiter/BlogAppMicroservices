@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+
+  postdb:
+    container_name: postdb
+    environment:
+      MSSQL_SA_PASSWORD: "PasswOrd!"
+      ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+      - "1433:1433"
