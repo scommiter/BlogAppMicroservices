@@ -1,18 +1,17 @@
-version: '3.4'
+version: '3.8'
 
 services:
   #database
   postdb:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/mssql/server:2019-latest
 
-  #api 
-  # post.api:
-  #   image: ${DOCKER_REGISTRY-}postapi
-  #   build:
-  #     context: .
-  #     dockerfile: Services/Post/Post.Api/Dockerfile
+#network section
+networks:
+  default: 
+    name: blog_microservice  
+    driver: bridge
 
 #volume section
 volumes:
   sqlserver_data:
-    name: sqlserver_data   
+    name: sqlserver_data  

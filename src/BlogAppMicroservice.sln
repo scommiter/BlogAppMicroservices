@@ -38,17 +38,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{E97437E5-12D1-4D2D-9643-B949AB61D2EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{E97437E5-12D1-4D2D-9643-B949AB61D2EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging", "Common.Logging\Common.Logging.csproj", "{30AB525D-8406-417C-A902-AB8A8F482B1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Logging", "Common.Logging\Common.Logging.csproj", "{30AB525D-8406-417C-A902-AB8A8F482B1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Post.Application", "Post.Application\Post.Application.csproj", "{6D852FC3-135E-4921-A659-04A2D9A79477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Application", "Post.Application\Post.Application.csproj", "{6D852FC3-135E-4921-A659-04A2D9A79477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Post.Domain", "Post.Domain\Post.Domain.csproj", "{DE510A22-E11B-4E5D-AA9A-8D0327B3E749}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Domain", "Post.Domain\Post.Domain.csproj", "{DE510A22-E11B-4E5D-AA9A-8D0327B3E749}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Post.Infrastructure", "Post.Infrastructure\Post.Infrastructure.csproj", "{0BADA053-06F3-41EA-9365-3597BEF52B0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Infrastructure", "Post.Infrastructure\Post.Infrastructure.csproj", "{0BADA053-06F3-41EA-9365-3597BEF52B0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{72CB0BD6-5E43-4317-AE60-3B58D9C9EBAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{72CB0BD6-5E43-4317-AE60-3B58D9C9EBAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{95C37BDB-1B0D-4B35-BA14-2CA5D9BA16B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,6 +106,10 @@ Global
 		{72CB0BD6-5E43-4317-AE60-3B58D9C9EBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72CB0BD6-5E43-4317-AE60-3B58D9C9EBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72CB0BD6-5E43-4317-AE60-3B58D9C9EBAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95C37BDB-1B0D-4B35-BA14-2CA5D9BA16B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95C37BDB-1B0D-4B35-BA14-2CA5D9BA16B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95C37BDB-1B0D-4B35-BA14-2CA5D9BA16B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95C37BDB-1B0D-4B35-BA14-2CA5D9BA16B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,6 +132,7 @@ Global
 		{DE510A22-E11B-4E5D-AA9A-8D0327B3E749} = {507371D0-9686-4FB9-9EA4-042F57B8A6E4}
 		{0BADA053-06F3-41EA-9365-3597BEF52B0A} = {507371D0-9686-4FB9-9EA4-042F57B8A6E4}
 		{72CB0BD6-5E43-4317-AE60-3B58D9C9EBAA} = {1E200950-0B05-463B-8318-71EF3FB284CC}
+		{95C37BDB-1B0D-4B35-BA14-2CA5D9BA16B9} = {1E200950-0B05-463B-8318-71EF3FB284CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {588B5EBD-5747-4646-B30A-50F70AB88BA3}
