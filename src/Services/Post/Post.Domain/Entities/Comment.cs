@@ -19,6 +19,12 @@ namespace Post.Domain.Entities
 
     public class TreePath
     {
+        public TreePath(int ancestor, int descendant)
+        {
+            Ancestor = ancestor;
+            Descendant = descendant;
+        }
+
         [Required]
         [Column("ancestor")]
         public int Ancestor { get; set; }

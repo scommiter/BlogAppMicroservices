@@ -9,9 +9,12 @@ try
 {
     builder.Host.AddAppConfigurations();
     builder.Services.AddConfigurationSettings(builder.Configuration);
+    builder.Services.AddApplicationServices();
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddControllers();
+    builder.Services.AddCors();
 
     var app = builder.Build();
 
@@ -23,7 +26,9 @@ try
 
     app.UseHttpsRedirection();
 
-    app.UseAuthorization();
+    //app.UseAuthentication();
+
+    //app.UseAuthorization();
 
     app.MapControllers();
 
