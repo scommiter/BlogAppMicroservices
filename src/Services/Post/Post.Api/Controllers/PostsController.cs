@@ -42,7 +42,7 @@ namespace Post.Api.Controllers
         {
             var post = _postRepository.GetPost(id);
             var comments = _commentRepository.GetCommentByPostId(post.Result.Id);
-            var commentDto = comments.Result.ToList().Select(c => _mapper.Map<CreateCommentDto>(c));
+            var commentDto = comments.Result.ToList().Select(comment => _mapper.Map<DisplayCommentDto>(comment));
             return Ok(commentDto);
         }
     }

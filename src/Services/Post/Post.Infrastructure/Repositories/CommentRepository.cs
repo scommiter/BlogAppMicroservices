@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Post.Application.Commons.Interfaces;
 using Post.Domain.Entities;
 using Post.Infrastructure.Persistence;
+using System.ComponentModel.Design;
 
 namespace Post.Infrastructure.Repositories
 {
@@ -25,7 +26,7 @@ namespace Post.Infrastructure.Repositories
                         t => t.Ancestor,
                         (c, t) => new { Comment = c, TreePath = t }
                     )
-                    .Where(joinResult => joinResult.TreePath.Ancestor == joinResult.TreePath.Descendant)
+                    .Where(joinResult => joinResult.TreePath.Ancestor == joinResult.TreePath.Descendant && joinResult.Comment.PostId == id)
                     .Select(joinResult => new Comment
                     {
                         Id = joinResult.Comment.Id,
@@ -36,6 +37,22 @@ namespace Post.Infrastructure.Repositories
                         LastModifiedDate = joinResult.Comment.LastModifiedDate
                     });
 
-        public async Task<Comment> GetComment(int id) => await GetByIdAsync(id);
+        public async Task<IQueryable<Comment>> GetComment(int id)
+        => _dbContext.Comments
+                    .Join(
+                        _dbContext.TreePaths,
+                        c => c.Id,
+                        t => t.Descendant,
+                        (c, t) => new { Comment = c, TreePath = t }
+                    )
+                    .Where(joinResult => joinResult.TreePath.Ancestor == id )
+                    .Select(joinResult => new Comment
+                    {
+                        Id = joinResult.Comment.Id,
+                        Author = joinResult.Comment.Author,
+                        Content = joinResult.Comment.Content,
+                        CreatedDate = joinResult.Comment.CreatedDate,
+                        LastModifiedDate = joinResult.Comment.LastModifiedDate
+                    });
     }
 }

@@ -42,10 +42,12 @@ namespace Post.Api.Controllers
             return Ok();
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult> GetComment(int id)
-        //{
-
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetComment(int id)
+        {
+            var comments = _commentRepository.GetComment(id);
+            var commentDto = comments.Result.ToList().Select(comment => _mapper.Map<DisplayCommentDto>(comment));
+            return Ok(commentDto);
+        }
     }
 }

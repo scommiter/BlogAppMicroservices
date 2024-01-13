@@ -10,6 +10,7 @@ namespace Post.Application.Mappings
         {
             profile.CreateMap<Domain.Entities.Post, CreatePostDto>().ReverseMap();
             profile.CreateMap<Comment, CreateCommentDto>().ReverseMap();
+            profile.CreateMap<Comment, DisplayCommentDto>().ReverseMap();
         }
     }
 }
