@@ -12,3 +12,14 @@ services:
      - sqlserver_data:/var/lib/sqlserver/data
     ports:
      - "1435:1433"
+
+  notificationdb:
+    container_name: notificationdb
+    environment:
+      MYSQL_ROOT_PASSWORD: lupin2000!
+      MYSQL_DATABASE: NotiDb
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql

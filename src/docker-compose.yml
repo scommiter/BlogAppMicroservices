@@ -5,6 +5,9 @@ services:
   postdb:
     image: mcr.microsoft.com/mssql/server:2019-latest
 
+  notificationdb:
+    image: mysql
+
 #network section
 networks:
   default: 
@@ -15,3 +18,5 @@ networks:
 volumes:
   sqlserver_data:
     name: sqlserver_data  
+  mysql_data:
+    name: mysql_data  
