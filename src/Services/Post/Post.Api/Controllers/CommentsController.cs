@@ -32,10 +32,20 @@ namespace Post.Api.Controllers
             await _commentRepository.CreateComment(comment);
             if(createCommentDto.AncestorId != null)
             {
-               await _treepathRepository.CreateTreePath(createCommentDto.AncestorId ?? default(int), comment.Id);
+               await _treepathRepository.CreateTreePathChild(createCommentDto.AncestorId ?? default(int), comment.Id);
+            }
+            else
+            {
+                await _treepathRepository.CreateTreePath(comment.Id);
             }
 
-            return Ok(comment);
+            return Ok();
         }
+
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult> GetComment(int id)
+        //{
+
+        //}
     }
 }

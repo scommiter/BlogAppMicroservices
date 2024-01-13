@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Infrastructure
 {
-    public class RepositoryMultiKeyBaseAsync<T, TContext> : IRepositoryMultiKey<T, TContext>
+    public class RepositoryMultiKeyBaseAsync<T, TContext> : RepositoryMultiKeyQueryBase<T, TContext>, IRepositoryMultiKey<T, TContext>
         where T : class
         where TContext : DbContext
     {
         private readonly DbContext _dbContext;
         private readonly IUnitOfWork<TContext> _unitOfWork;
 
-        public RepositoryMultiKeyBaseAsync(TContext dbContext, IUnitOfWork<TContext> unitOfWork)
+        public RepositoryMultiKeyBaseAsync(TContext dbContext, IUnitOfWork<TContext> unitOfWork) : base(dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));

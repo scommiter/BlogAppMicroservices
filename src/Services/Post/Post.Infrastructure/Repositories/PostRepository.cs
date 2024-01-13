@@ -17,5 +17,10 @@ namespace Post.Infrastructure.Repositories
             await CreateAsync(post);
 
         }
+
+        public async Task<Domain.Entities.Post> GetPost(Guid id)
+        {
+           return await GetByIdAsync(id);
+        }
     }
 }

@@ -4,7 +4,15 @@ namespace Contracts.Domains
 {
     public abstract class EntityAuditBase<T> : EntityBase<T>, IAuditable
     {
-        public DateTimeOffset CreatedDate { get; set; }
+        private DateTimeOffset _createdDate = DateTimeOffset.UtcNow;
+
+        public DateTimeOffset CreatedDate
+        {
+            get => _createdDate;
+            set => _createdDate = (value == default) ? DateTimeOffset.UtcNow : value;
+        }
+
         public DateTimeOffset? LastModifiedDate { get; set; }
     }
 }
+ 

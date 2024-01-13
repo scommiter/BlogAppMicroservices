@@ -55,23 +55,11 @@ namespace Post.Infrastructure.Migrations
                 columns: table => new
                 {
                     ancestor = table.Column<int>(type: "int", nullable: false),
-                    descendant = table.Column<int>(type: "int", nullable: false),
-                    CommentId = table.Column<int>(type: "int", nullable: true),
-                    CommentId1 = table.Column<int>(type: "int", nullable: true)
+                    descendant = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TreePaths", x => new { x.ancestor, x.descendant });
-                    table.ForeignKey(
-                        name: "FK_TreePaths_Comments_CommentId",
-                        column: x => x.CommentId,
-                        principalTable: "Comments",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_TreePaths_Comments_CommentId1",
-                        column: x => x.CommentId1,
-                        principalTable: "Comments",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TreePaths_Comments_ancestor",
                         column: x => x.ancestor,
@@ -90,16 +78,6 @@ namespace Post.Infrastructure.Migrations
                 name: "IX_Comments_PostId",
                 table: "Comments",
                 column: "PostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TreePaths_CommentId",
-                table: "TreePaths",
-                column: "CommentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TreePaths_CommentId1",
-                table: "TreePaths",
-                column: "CommentId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TreePaths_descendant",

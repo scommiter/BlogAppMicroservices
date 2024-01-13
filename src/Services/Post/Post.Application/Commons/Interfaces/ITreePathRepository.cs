@@ -2,6 +2,9 @@
 {
     public interface ITreePathRepository
     {
-        Task CreateTreePath(int ancestor, int descendant);
+        Task GetAllChildTreePathComment(int commentId);
+        Task CreateTreePath(int commentId);
+        Task CreateTreePathChild(int ancestor, int descendant);
+        Task DeleteAllChildTreePathComment(int commentId);
     }
 }

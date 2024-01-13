@@ -6,5 +6,7 @@ namespace Post.Application.Commons.Interfaces
     public interface ICommentRepository
     {
         Task CreateComment(Comment comment);
+        Task<Comment> GetComment(int id);
+        Task<IQueryable<Comment>> GetCommentByPostId(Guid id);
     }
 }

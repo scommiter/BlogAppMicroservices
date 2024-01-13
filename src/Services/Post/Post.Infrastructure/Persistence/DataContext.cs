@@ -32,6 +32,18 @@ namespace Post.Infrastructure.Persistence
                 .WithMany()
                 .HasForeignKey(tp => tp.Descendant)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Comment>()
+                .HasMany(c => c.Ancestors)
+                .WithOne(tp => tp.AncestorComment)
+                .HasForeignKey(tp => tp.Ancestor)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Comment>()
+                .HasMany(c => c.Descendants)
+                .WithOne(tp => tp.DescendantComment)
+                .HasForeignKey(tp => tp.Descendant)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Post.Application.Commons.Interfaces;
 using Post.Domain.Dtos;
@@ -12,10 +11,16 @@ namespace Post.Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IPostRepository _postRepository;
-        public PostsController(IMapper mapper, IPostRepository postRepository)
+        private readonly ICommentRepository _commentRepository;
+        public PostsController(
+            IMapper mapper,
+            IPostRepository postRepository,
+            ICommentRepository commentRepository)
         {
             _mapper = mapper;
             _postRepository = postRepository;
+            _commentRepository = commentRepository;
+
         }
 
         [HttpPost]
@@ -30,6 +35,15 @@ namespace Post.Api.Controllers
             await _postRepository.CreatePost(post);
 
             return Ok(post);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetComment(Guid id)
+        {
+            var post = _postRepository.GetPost(id);
+            var comments = _commentRepository.GetCommentByPostId(post.Result.Id);
+            var commentDto = comments.Result.ToList().Select(c => _mapper.Map<CreateCommentDto>(c));
+            return Ok(commentDto);
         }
     }
 }

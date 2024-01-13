@@ -12,7 +12,7 @@ using Post.Infrastructure.Persistence;
 namespace Post.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240110184138_InitDB")]
+    [Migration("20240113073739_InitDB")]
     partial class InitDB
     {
         /// <inheritdoc />
@@ -96,17 +96,7 @@ namespace Post.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("descendant");
 
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CommentId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Ancestor", "Descendant");
-
-                    b.HasIndex("CommentId");
-
-                    b.HasIndex("CommentId1");
 
                     b.HasIndex("Descendant");
 
@@ -127,21 +117,13 @@ namespace Post.Infrastructure.Migrations
             modelBuilder.Entity("Post.Domain.Entities.TreePath", b =>
                 {
                     b.HasOne("Post.Domain.Entities.Comment", "AncestorComment")
-                        .WithMany()
+                        .WithMany("Ancestors")
                         .HasForeignKey("Ancestor")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Post.Domain.Entities.Comment", null)
-                        .WithMany("Ancestors")
-                        .HasForeignKey("CommentId");
-
-                    b.HasOne("Post.Domain.Entities.Comment", null)
-                        .WithMany("Descendants")
-                        .HasForeignKey("CommentId1");
-
                     b.HasOne("Post.Domain.Entities.Comment", "DescendantComment")
-                        .WithMany()
+                        .WithMany("Descendants")
                         .HasForeignKey("Descendant")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
