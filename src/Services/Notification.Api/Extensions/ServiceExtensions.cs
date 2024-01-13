@@ -1,8 +1,11 @@
-﻿using Infrastructure;
-using Infrastructure.Interfaces;
+﻿using Infrastructure.Interfaces;
+using Infrastructure;
+using Notification.Api.EventBusConsumer;
+using Notification.Api.Repositories.Interfaces;
+using Notification.Api.Repositories;
+using Notification.Api.Services.Interfaces;
+using Notification.Api.Services;
 using Shared.Configurations;
-using System.Reflection;
-
 namespace Notification.Api.Extensions
 {
     public static class ServiceExtensions
@@ -13,16 +16,16 @@ namespace Notification.Api.Extensions
                 .Get<DatabaseSettings>();
             services.AddSingleton(databaseSettings);
 
+            var eventBusSettings = configuration.GetSection(nameof(EventBusSettings))
+                .Get<EventBusSettings>();
+            services.AddSingleton(eventBusSettings);
 
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
-
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<AddNotificationConsumer>();
 
             return services;
         }
-
-        //public static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
-        //    services.AddAutoMapper(Assembly.GetExecutingAssembly())
-        //            .AddAutoMapper(typeof(MappingProfile))
-        //    ;
     }
 }

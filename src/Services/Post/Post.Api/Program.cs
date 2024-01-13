@@ -1,4 +1,5 @@
 using Common.Logging;
+using MassTransit;
 using Post.Api.Extensions;
 using Serilog;
 
@@ -15,6 +16,13 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.AddControllers();
     builder.Services.AddCors();
+
+    builder.Services.AddMassTransit(config => {
+        config.UsingRabbitMq((ctx, cfg) => {
+            cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+            //cfg.UseHealthCheck(ctx);
+        });
+    });
 
     var app = builder.Build();
 

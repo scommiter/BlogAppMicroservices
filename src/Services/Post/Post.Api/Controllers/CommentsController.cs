@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EventBus.Messages;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Post.Application.Commons.Interfaces;
 using Post.Domain.Dtos;
@@ -14,14 +16,17 @@ namespace Post.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ICommentRepository _commentRepository;
         private readonly ITreePathRepository _treepathRepository;
+        private readonly IPublishEndpoint _publishEndpoint;
         public CommentsController(
             IMapper mapper, 
             ICommentRepository commentRepository,
-            ITreePathRepository treepathRepository)
+            ITreePathRepository treepathRepository,
+            IPublishEndpoint publishEndpoint)
         {
             _mapper = mapper;
             _commentRepository = commentRepository;
             _treepathRepository = treepathRepository;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpPost]
@@ -38,6 +43,14 @@ namespace Post.Api.Controllers
             {
                 await _treepathRepository.CreateTreePath(comment.Id);
             }
+
+            await _publishEndpoint.Publish(new NotificationEvent
+            {
+                UserNameSentMessage = createCommentDto.Author,
+                UserNameComment = "Fix cung",
+                Message = $"comment into your post",
+                PostId = createCommentDto.PostId.ToString()
+            });
 
             return Ok();
         }

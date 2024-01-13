@@ -1,10 +1,8 @@
 ﻿using Infrastructure;
 using Infrastructure.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Post.Application.Commons.Interfaces;
 using Post.Domain.Entities;
 using Post.Infrastructure.Persistence;
-using System.ComponentModel.Design;
 
 namespace Post.Infrastructure.Repositories
 {
@@ -45,7 +43,7 @@ namespace Post.Infrastructure.Repositories
                         t => t.Descendant,
                         (c, t) => new { Comment = c, TreePath = t }
                     )
-                    .Where(joinResult => joinResult.TreePath.Ancestor == id )
+                    .Where(joinResult => joinResult.TreePath.Ancestor == id)
                     .Select(joinResult => new Comment
                     {
                         Id = joinResult.Comment.Id,

@@ -23,3 +23,11 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+       - "5672:5672"
+       - "15672:15672"

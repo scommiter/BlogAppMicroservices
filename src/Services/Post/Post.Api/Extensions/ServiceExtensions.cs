@@ -1,8 +1,6 @@
 ﻿using Infrastructure;
 using Infrastructure.Interfaces;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Post.Application.Commons.Interfaces;
 using Post.Application.Mappings;
 using Post.Infrastructure.Persistence;

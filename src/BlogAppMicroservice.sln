@@ -52,6 +52,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Domain", "Services\Pos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Infrastructure", "Services\Post\Post.Infrastructure\Post.Infrastructure.csproj", "{3ACC86D0-340D-4B9E-96FA-B752897C46A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "EventBus.Messages\EventBus.Messages.csproj", "{65F7B8F6-21EE-4511-AA65-C4D0F60A0DFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{3ACC86D0-340D-4B9E-96FA-B752897C46A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ACC86D0-340D-4B9E-96FA-B752897C46A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ACC86D0-340D-4B9E-96FA-B752897C46A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65F7B8F6-21EE-4511-AA65-C4D0F60A0DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65F7B8F6-21EE-4511-AA65-C4D0F60A0DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65F7B8F6-21EE-4511-AA65-C4D0F60A0DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65F7B8F6-21EE-4511-AA65-C4D0F60A0DFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{BEC78038-706A-41C1-A968-F9B6EC6DD4BC} = {507371D0-9686-4FB9-9EA4-042F57B8A6E4}
 		{5C7C0AEF-27C4-401C-B8E8-EB80DD3CBF02} = {507371D0-9686-4FB9-9EA4-042F57B8A6E4}
 		{3ACC86D0-340D-4B9E-96FA-B752897C46A3} = {507371D0-9686-4FB9-9EA4-042F57B8A6E4}
+		{65F7B8F6-21EE-4511-AA65-C4D0F60A0DFF} = {1E200950-0B05-463B-8318-71EF3FB284CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {588B5EBD-5747-4646-B30A-50F70AB88BA3}

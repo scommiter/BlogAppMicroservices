@@ -8,6 +8,9 @@ services:
   notificationdb:
     image: mysql
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
 #network section
 networks:
   default: 
