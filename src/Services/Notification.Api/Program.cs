@@ -1,8 +1,6 @@
 using Common.Logging;
-using Microsoft.EntityFrameworkCore;
 using Notification.Api.Extensions;
 using Notification.Api.Mapping;
-using Notification.Api.Persistence;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
