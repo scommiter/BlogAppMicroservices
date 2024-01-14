@@ -26,8 +26,8 @@ namespace Notification.Api.EventBusConsumer
         {
             var addNotification = new AddNotificationDto
             {
-                Username = context.Message.UserNameSentMessage,
-                UsernameComment = context.Message.UserNameComment,
+                Username = context.Message.Sender,
+                UsernameComment = context.Message.Commentator,
                 Content = context.Message.Message,
                 PostId = context.Message.PostId
             };

@@ -27,19 +27,6 @@ try
 
     app.MapControllers();
 
-    using (var scope = app.Services.CreateScope())
-    {
-        try
-        {
-            var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-            await context.Database.MigrateAsync();
-        }
-        catch (Exception ex)
-        {
-            app.Logger.LogError(ex, "An error occurred during migration");
-        }
-    }
-
     app.Run();
 }
 catch (Exception ex)

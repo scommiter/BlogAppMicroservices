@@ -46,8 +46,8 @@ namespace Post.Api.Controllers
 
             await _publishEndpoint.Publish(new NotificationEvent
             {
-                UserNameSentMessage = createCommentDto.Author,
-                UserNameComment = "Fix cung",
+                Sender = createCommentDto.Author,
+                Commentator = "Fix cung",
                 Message = $"comment into your post",
                 PostId = createCommentDto.PostId.ToString()
             });

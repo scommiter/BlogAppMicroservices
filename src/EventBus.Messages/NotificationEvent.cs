@@ -2,8 +2,8 @@
 {
     public class NotificationEvent : IntegrationBaseEvent
     {
-        public string UserNameSentMessage { get; set; }
-        public string UserNameComment { get; set; }
+        public string Sender { get; set; }
+        public string Commentator { get; set; }
         public string Message { get; set; }
         public string PostId { get; set; }
     }
