@@ -42,3 +42,11 @@ services:
     ports:
        - "5672:5672"
        - "15672:15672"
+
+  userdb:
+    container_name: userdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db

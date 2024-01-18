@@ -14,6 +14,9 @@ services:
   chatdb:
     image: postgres
 
+  userdb:
+    image: mongo
+
 #network section
 networks:
   default: 
@@ -28,3 +31,5 @@ volumes:
     name: mysql_data  
   postgres_data:
     name: postgres_data  
+  mongo_data:
+    name: mongo_data  

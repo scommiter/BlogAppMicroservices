@@ -1,31 +1,24 @@
-﻿using MongoDB.Driver;
-using Shared.Configurations;
-using User.Api.Persistence;
+﻿using Shared.Configurations;
 
-namespace User.Api.Extensions
+namespace User.Grpc.Extensions
 {
     public static class HostExtensions
     {
-        public static IHost MigrateDatabase(this IHost host)
+        public static void AddAppConfigurations(this ConfigureHostBuilder host)
         {
-            using var scope = host.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            var settings = services.GetService<DatabaseSettings>();
-            if (settings == null || string.IsNullOrEmpty(settings.ConnectionString))
-                throw new ArgumentNullException("MongoDbSettings is not configured.");
-
-            var mongoClient = services.GetRequiredService<IMongoClient>();
-            new UserDbSeed()
-                .SeedDataAsync(mongoClient, settings)
-                .Wait();
-            return host;
+            host.ConfigureAppConfiguration((context, config) =>
+            {
+                var env = context.HostingEnvironment;
+                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                      .AddEnvironmentVariables();
+            });
         }
 
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
             services.ConfigureDbCotext(configuration);
             services.AddHttpContextAccessor();
 

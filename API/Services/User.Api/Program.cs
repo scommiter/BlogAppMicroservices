@@ -7,9 +7,11 @@ builder.Host.UseSerilog(Serilogger.Configure);
 
 try
 {
-    builder.Host.AddAppConfigurations();
     builder.Services.AddConfigurationSettings(builder.Configuration);
+    builder.Services.AddInfrastructureServices();
+    builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
     builder.Services.AddInfrastructure(builder.Configuration);
+    builder.Services.ConfigureMongoDbClient(builder.Configuration);
 
     var app = builder.Build();
 
@@ -21,7 +23,9 @@ try
 
     app.UseHttpsRedirection();
 
-    app.Run();
+    app.MapDefaultControllerRoute();
+
+    app.MigrateDatabase().Run();
 }
 catch (Exception ex)
 {

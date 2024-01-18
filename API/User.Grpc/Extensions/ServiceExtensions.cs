@@ -1,8 +1,6 @@
-﻿using Infrastructure;
-using Infrastructure.Interfaces;
+﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using Shared.Configurations;
-using User.Api.Mapping;
 namespace User.Api.Extensions
 {
     public static class ServiceExtensions
@@ -13,14 +11,7 @@ namespace User.Api.Extensions
                 .Get<DatabaseSettings>();
             services.AddSingleton(databaseSettings);
 
-            services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
-
             return services;
-        }
-
-        public static void AddInfrastructureServices(this IServiceCollection services)
-        {
-            services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
         }
 
         public static void ConfigureMongoDbClient(this IServiceCollection services, IConfiguration configuration)
