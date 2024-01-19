@@ -11,6 +11,7 @@ try
     builder.Services.AddInfrastructureServices();
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
     builder.Services.AddInfrastructure(builder.Configuration);
+    builder.Services.AddGrpcClientConfigure(builder.Configuration);
     builder.Services.ConfigureMongoDbClient(builder.Configuration);
 
     var app = builder.Build();

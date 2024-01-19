@@ -12,13 +12,27 @@ try
     // Add services to the container.
     builder.Host.AddAppConfigurations();
     builder.Services.AddConfigurationSettings(builder.Configuration);
+    builder.Services.AddInfrastructureServices();
     builder.Services.ConfigureMongoDbClient(builder.Configuration);
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddGrpc();
 
+    // Add for gRPC UI
+    if (builder.Environment.IsDevelopment())
+    {
+        builder.Services.AddGrpcReflection();
+    }
+
     var app = builder.Build();
 
+    // Add for gRPC UI
+    if (builder.Environment.IsDevelopment())
+    {
+        app.MapGrpcReflectionService();
+    }
+
     app.MapGrpcService<UserService>();
+    
     // Configure the HTTP request pipeline.
     app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
