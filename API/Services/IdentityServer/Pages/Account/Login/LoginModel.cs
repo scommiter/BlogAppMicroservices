@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IdentityServer.Pages.Login;
 
-public class InputModel
+public class LoginModel
 {
     [Required]
     public string Username { get; set; }

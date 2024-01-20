@@ -1,4 +1,6 @@
+using IdentityServer.GrpcService;
 using Serilog;
+using User.Grpc.Protos;
 
 namespace IdentityServer.Extensions;
 
@@ -44,5 +46,13 @@ internal static class HostingExtensions
         });
 
         return app;
+    }
+
+    public static IServiceCollection AddGrpcClientConfigure(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<UserGrpcService>();
+        services.AddGrpcClient<UserProtoService.UserProtoServiceClient>
+            (o => o.Address = new Uri(configuration["GrpcSettings:UserUrl"]));
+        return services;
     }
 }

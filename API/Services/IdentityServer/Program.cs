@@ -8,6 +8,7 @@ builder.Host.UseSerilog(Serilogger.Configure);
 try
 {
     builder.Host.AddAppConfigurations();
+    builder.Services.AddGrpcClientConfigure(builder.Configuration);
 
     var app = builder
         .ConfigureServices()
