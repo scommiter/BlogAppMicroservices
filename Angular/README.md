@@ -1,23 +1,14 @@
-# create new empty work space
-ng new Angular --create-application=false
+# create new project
+npx create-nx-workspace
 
-# create project
-ng g application chat-app --routing --style=scss
-ng g application post-app --routing --style=scss
-ng g application user-app --routing --style=scss
+# create new application
+npx nx g @nx/angular:app user --directory=apps/user
 
-# run project
-ng s user-app -o
+# create local libraries
+npx nx g @nx/angular:library shared --directory=libs/shared --standalone
 
-# setup
-npm i webpack webpack-cli --save-dev
+# generate service libs
+npx nx generate @nrwl/angular:service services/auth/auth --project=shared
 
-ng add @angular-architects/module-federation --project user-app --port 4200
-ng add @angular-architects/module-federation --project post-app --port 4300
-ng add @angular-architects/module-federation --project chat-app --port 4400
-
-# generate component in specific project
-ng g c src/app/user-dashboard --project=user-app
-
-# install IDP library
-npm install oidc-client --save
+# run application
+npx nx serve chat
