@@ -97,7 +97,7 @@ public class Index : PageModel
             // validate username/password against in-memory store
             if (!string.IsNullOrEmpty(user.UserName))
             {
-                await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.UserName, user.UserName, clientId: context?.Client.ClientId));
+                await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.SubjectId, user.UserName, clientId: context?.Client.ClientId));
 
                 // only set explicit expiration here if user chooses "remember me". 
                 // otherwise we rely upon expiration configured in cookie middleware.
@@ -112,7 +112,7 @@ public class Index : PageModel
                 };
 
                 // issue authentication cookie with subject ID and UserName
-                var isuser = new IdentityServerUser(user.UserName)
+                var isuser = new IdentityServerUser(user.SubjectId)
                 {
                     DisplayName = user.UserName
                 };

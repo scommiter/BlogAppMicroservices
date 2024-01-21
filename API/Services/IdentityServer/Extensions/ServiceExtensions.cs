@@ -1,4 +1,5 @@
-﻿using Shared.Configurations;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Shared.Configurations;
 
 namespace IdentityServer.Extensions
 {
@@ -46,8 +47,10 @@ namespace IdentityServer.Extensions
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddInMemoryApiResources(Config.ApiResources)
-                .AddTestUsers(TestUsers.Users)
                 ;
+
+            // login redict to angular
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
         }
     }
 }

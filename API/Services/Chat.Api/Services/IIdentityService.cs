@@ -16,10 +16,6 @@ namespace Chat.Api.Services
             _context = context;
         }
 
-        /// <summary>
-        /// "sub": "hoainam10th", user.grpc subjectId = username
-        /// </summary>
-        /// <returns></returns>
         public string GetUserIdentity()
         {
             return _context.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;

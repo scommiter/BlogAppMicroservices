@@ -25,12 +25,14 @@ namespace User.Api.Persistence
                 {
                     UserName = "lupin",
                     Password = "lupin",
+                    SubjectId = "lupin",
                     ImageUrl = ""
                 },
                 new UserEntry()
                 {
                     UserName = "lupan",
                     Password = "lupan",
+                    SubjectId = "lupan",
                     ImageUrl = ""
                 }
             };

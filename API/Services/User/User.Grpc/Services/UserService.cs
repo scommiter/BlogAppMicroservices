@@ -30,6 +30,7 @@ namespace User.Grpc.Services
                 {
                     UserName = request.UserName,
                     Password = passwordHash,
+                    SubjectId = request.UserName,
                     ImageUrl = "/images/user.png",
                 };
                 await _userRepository.CreateAsync(entity);

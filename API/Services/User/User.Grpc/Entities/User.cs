@@ -18,6 +18,8 @@ namespace User.Grpc.Entities
         public string UserName { get; set; }
         [BsonElement("password")]
         public string Password { get; set; }
+        [BsonElement("subjectId")]
+        public string SubjectId { get; set; }
 
         [BsonElement("imageUrl")]
         public string ImageUrl { get; set; }

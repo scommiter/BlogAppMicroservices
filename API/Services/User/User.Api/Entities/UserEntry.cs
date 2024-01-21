@@ -19,6 +19,8 @@ namespace User.Api.Entities
 
         [BsonElement("password")]
         public string Password { get; set; }
+        [BsonElement("subjectId")]
+        public string SubjectId { get; set; }
 
         [BsonElement("imageUrl")]
         public string ImageUrl { get; set; }

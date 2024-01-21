@@ -1,6 +1,7 @@
 ﻿using Infrastructure;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Post.Api.Services;
 using Post.Application.Commons.Interfaces;
 using Post.Application.Mappings;
 using Post.Infrastructure.Persistence;
@@ -22,9 +23,11 @@ namespace Post.Api.Extensions
                databaseSettings.ConnectionString
                 ));
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+            services.AddHttpContextAccessor();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ITreePathRepository, TreePathRepository>();
+            services.AddTransient<IIdentityService, IdentityService>();
 
             return services;
         }

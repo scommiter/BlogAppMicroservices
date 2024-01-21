@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
 using EventBus.Messages;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Post.Api.Services;
 using Post.Application.Commons.Interfaces;
 using Post.Domain.Dtos;
 using Post.Domain.Entities;
-using Post.Infrastructure.Repositories;
 
 namespace Post.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentsController : ControllerBase
@@ -17,16 +19,19 @@ namespace Post.Api.Controllers
         private readonly ICommentRepository _commentRepository;
         private readonly ITreePathRepository _treepathRepository;
         private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IIdentityService _identityService;
         public CommentsController(
-            IMapper mapper, 
+            IMapper mapper,
             ICommentRepository commentRepository,
             ITreePathRepository treepathRepository,
-            IPublishEndpoint publishEndpoint)
+            IPublishEndpoint publishEndpoint,
+            IIdentityService identityService)
         {
             _mapper = mapper;
             _commentRepository = commentRepository;
             _treepathRepository = treepathRepository;
             _publishEndpoint = publishEndpoint;
+            _identityService = identityService;
         }
 
         [HttpPost]
@@ -35,9 +40,9 @@ namespace Post.Api.Controllers
 
             var comment = _mapper.Map<Comment>(createCommentDto);
             await _commentRepository.CreateComment(comment);
-            if(createCommentDto.AncestorId != null)
+            if (createCommentDto.AncestorId != null)
             {
-               await _treepathRepository.CreateTreePathChild(createCommentDto.AncestorId ?? default(int), comment.Id);
+                await _treepathRepository.CreateTreePathChild(createCommentDto.AncestorId ?? default(int), comment.Id);
             }
             else
             {
@@ -58,6 +63,9 @@ namespace Post.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetComment(int id)
         {
+            var userId = _identityService.GetUserIdentity();
+            if (string.IsNullOrEmpty(userId)) return BadRequest("Username is Null");
+
             var comments = _commentRepository.GetComment(id);
             var commentDto = comments.Result.ToList().Select(comment => _mapper.Map<DisplayCommentDto>(comment));
             return Ok(commentDto);

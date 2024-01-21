@@ -44,9 +44,9 @@ public static class Config
                     ClientId = "angular_client",
                     ClientName = "Angular Blog Client",
                     ClientUri = "http://localhost:4200",
-
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
+                    ClientSecrets = {new Secret("angularLupin".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    RequirePkce = true, //protect CSRF
                     RequireClientSecret = false,
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
@@ -73,6 +73,37 @@ public static class Config
                         "postAPI",
                         "notificationAPI",
                         "chatAPI"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "post_client_api",
+                    ClientName = "Post API Client",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets = { new Secret("postapi".Sha256()) },
+
+                    AllowedScopes = new List<string>()
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Address,
+                        "roles",
+                        "userAPI",
+                        "postAPI",
+                        "notificationAPI",
+                        "chatAPI"
+                    },
+
+                    // Redirect URIs and Post Logout Redirect URIs specific to the client host
+                    RedirectUris =
+                    {
+                        "http://localhost:7002/signin-oidc",
+                        "http://localhost:7002/signout-callback-oidc",
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        "http://localhost:7002/signout-callback-oidc"
                     }
                 }
         };
