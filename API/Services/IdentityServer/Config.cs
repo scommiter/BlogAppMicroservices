@@ -45,7 +45,7 @@ public static class Config
                     ClientName = "Angular Blog Client",
                     ClientUri = "http://localhost:4200",
                     ClientSecrets = {new Secret("angularLupin".Sha256()) },
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true, //protect CSRF
                     RequireClientSecret = false,
                     AllowAccessTokensViaBrowser = true,

@@ -56,11 +56,12 @@ namespace User.Grpc.Services
                     return new UserReply
                     {
                         UserName = mainUser.UserName,
+                        SubjectId = mainUser.SubjectId,
                         ImageUrl = $"{_config["BaseUrl:UserApiUrl"]}{mainUser.ImageUrl}"
                     };
                 }
             }
-            return new UserReply { UserName = "", SubjectId = "", ImageUrl = "" };
+            return new UserReply { UserName = mainUser.UserName, SubjectId = mainUser.SubjectId, ImageUrl = mainUser.ImageUrl };
         }
 
         public override async Task<UserReply> GetUserByUsername(Protos.LoginRequest request, ServerCallContext context)
@@ -72,6 +73,7 @@ namespace User.Grpc.Services
                 return new UserReply
                 {
                     UserName = mainUser.UserName,
+                    SubjectId = mainUser.SubjectId,
                     ImageUrl = $"{mainUser.ImageUrl}",
                 };
             }

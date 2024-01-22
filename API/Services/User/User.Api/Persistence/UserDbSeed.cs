@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using Shared.Configurations;
 using User.Api.Entities;
+using User.Grpc.Helpers;
 
 namespace User.Api.Persistence
 {
@@ -24,14 +25,14 @@ namespace User.Api.Persistence
                 new UserEntry()
                 {
                     UserName = "lupin",
-                    Password = "lupin",
+                    Password = Helper.CreateMD5("lupin"),
                     SubjectId = "lupin",
                     ImageUrl = ""
                 },
                 new UserEntry()
                 {
                     UserName = "lupan",
-                    Password = "lupan",
+                    Password = Helper.CreateMD5("lupan"),
                     SubjectId = "lupan",
                     ImageUrl = ""
                 }

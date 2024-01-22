@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'angular-shared',
+  selector: 'angular-dashboard',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './shared.component.html',
-  styleUrl: './shared.component.css',
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss',
 })
-export class SharedComponent {}
+export class DashboardComponent {}

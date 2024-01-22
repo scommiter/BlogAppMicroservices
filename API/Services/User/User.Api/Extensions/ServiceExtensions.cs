@@ -18,12 +18,12 @@ namespace User.Api.Extensions
             return services;
         }
 
-        public static void AddInfrastructureServices(this IServiceCollection services)
+        public static void AddInfrastructureService(this IServiceCollection services)
         {
             services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
         }
 
-        public static void ConfigureMongoDbClient(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureMongoDbClientUserAPI(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IMongoClient>(
                 new MongoClient(services.GetMongoConnectionString(configuration)))

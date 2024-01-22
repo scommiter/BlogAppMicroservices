@@ -8,11 +8,11 @@ builder.Host.UseSerilog(Serilogger.Configure);
 try
 {
     builder.Services.AddConfigurationSettings(builder.Configuration);
-    builder.Services.AddInfrastructureServices();
+    builder.Services.AddInfrastructureService();
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddGrpcClientConfigure(builder.Configuration);
-    builder.Services.ConfigureMongoDbClient(builder.Configuration);
+    builder.Services.ConfigureMongoDbClientUserAPI(builder.Configuration);
 
     var app = builder.Build();
 

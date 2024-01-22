@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\Common.Logging\Common.Logging.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Shared\Shared.csproj" />
+    <ProjectReference Include="..\User.Grpc\User.Grpc.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

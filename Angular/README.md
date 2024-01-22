@@ -11,4 +11,7 @@ npx nx g @nx/angular:library shared --directory=libs/shared --standalone
 npx nx generate @nrwl/angular:service services/auth/auth --project=shared
 
 # run application
-npx nx serve chat
+npx nx serve user
+
+# install identityserver4
+npm install oidc-client --save
