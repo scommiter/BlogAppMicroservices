@@ -8,6 +8,8 @@ import { ReplaySubject, Subject } from 'rxjs';
 })
 export class AuthService {
   private currentUserSource = new ReplaySubject<User>(1);
+  currentUser$ = this.currentUserSource.asObservable();
+
   private _userManager: UserManager;
   private _user!: User;
 
@@ -23,7 +25,10 @@ export class AuthService {
     return this._userManager.signinRedirect();
   }
 
-  async signout() {  
+  async signout() {
+    localStorage.removeItem('user');
+    this.currentUserSource.next(null!);
+    await this._userManager.signoutRedirect();
   }
 
   public isAuthenticated = (): Promise<boolean> => {
@@ -38,6 +43,11 @@ export class AuthService {
       return this.checkUser(user!);
     })
   }
+
+  async completeAuthentication() {
+    this._user = await this._userManager.signinRedirectCallback();
+    this.setCurrentUser(this._user)
+  }
   
   private checkUser = (user : User): boolean => {
     return !!user && !user.expired;
@@ -47,7 +57,7 @@ export class AuthService {
     return {
       authority: Constants.idpAuthority,// url identity server
       client_id: Constants.clientId,
-      redirect_uri: `${Constants.clientRoot}/signin-callback`,
+      redirect_uri: `${Constants.clientRoot}/dash-board`,
       post_logout_redirect_uri: Constants.clientRoot,
       response_type: 'code',
       scope: 'openid profile email address roles userAPI postAPI notificationAPI chatAPI',
@@ -64,5 +74,13 @@ export class AuthService {
       localStorage.setItem('user', JSON.stringify(user));
       this.currentUserSource.next(user); 
     }
+  }
+
+  getUsername(): string{
+    return this.getDecodedToken().sub
+  }
+
+  private getDecodedToken() {
+    return JSON.parse(atob(this._user.access_token.split('.')[1]));
   }
 }

@@ -47,6 +47,7 @@ namespace IdentityServer.Extensions
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddInMemoryApiResources(Config.ApiResources)
+                .AddDeveloperSigningCredential()
                 ;
 
             // login redict to angular

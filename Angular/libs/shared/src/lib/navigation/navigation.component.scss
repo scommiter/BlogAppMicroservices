@@ -1,4 +1,8 @@
-.active {
-    text-decoration: underline;
-    background-color: hotpink;
-  }
+nav{
+  height: 50px;
+  background-color: var(--navbar-footer-color);
+}
+
+.nav-link{
+  text-transform: uppercase;
+}

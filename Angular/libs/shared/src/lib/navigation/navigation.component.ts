@@ -11,7 +11,8 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class NavigationComponent {
   constructor(public authService: AuthService) {
-    
+    var test = this.authService.currentUser$;
+    console.log("UserName", test);
   }
 
   async login(){
@@ -21,5 +22,9 @@ export class NavigationComponent {
 
   async logout(){
     await this.authService.signout()    
+  }
+
+  async register(){
+      
   }
 }

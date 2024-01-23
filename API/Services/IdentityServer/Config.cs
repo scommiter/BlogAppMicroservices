@@ -50,12 +50,11 @@ public static class Config
                     RequireClientSecret = false,
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
-                    AccessTokenLifetime = 60*60*2,
 
                     RedirectUris =
                     {
                         "http://localhost:4200",
-                        "http://localhost:4200/signin-callback",
+                        "http://localhost:4200/dash-board",
                         "http://localhost:4200/assets/silent-callback.html"
                     },
 
