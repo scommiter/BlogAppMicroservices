@@ -57,14 +57,14 @@ export class AuthService {
     return {
       authority: Constants.idpAuthority,// url identity server
       client_id: Constants.clientId,
-      redirect_uri: `${Constants.clientRoot}/dash-board`,
-      post_logout_redirect_uri: Constants.clientRoot,
+      redirect_uri: `${Constants.clientPost}/news`,
+      post_logout_redirect_uri: Constants.clientUser,
       response_type: 'code',
       scope: 'openid profile email address roles userAPI postAPI notificationAPI chatAPI',
       filterProtocolClaims: true,
       loadUserInfo: true,
       automaticSilentRenew: true,
-      silent_redirect_uri: `${Constants.clientRoot}/silent-refresh.html`
+      silent_redirect_uri: `${Constants.clientUser}/silent-refresh.html`
     };
   }
 
