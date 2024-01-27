@@ -11,17 +11,12 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class NavigationComponent {
   constructor(public authService: AuthService) {
-    var test = this.authService.currentUser$;
-    console.log("UserName", test);
   }
 
-  async login(){
-    await this.authService.login()
-    //sau khi login xong se redict toi AuthCallbackComponent. luc do navigateto neewfeed    
+  async login(){ 
   }
 
-  async logout(){
-    await this.authService.signout()    
+  async logout(){ 
   }
 
   async register(){

@@ -15,10 +15,8 @@ export class DashboardComponent {
   constructor(
     private authService: AuthService, 
     private router: Router){
-      console.log("this is dashboard");
   }
 
   async ngOnInit() {
-    await this.authService.completeAuthentication()
   }
 }

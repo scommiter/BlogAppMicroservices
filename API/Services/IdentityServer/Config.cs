@@ -41,10 +41,10 @@ public static class Config
         {
                 new Client
                 {
-                    ClientId = "angular_client",
-                    ClientName = "Angular Blog Client",
+                    ClientId = "angular_user_client",
+                    ClientName = "Angular User Client",
                     ClientUri = "http://localhost:4200",
-                    ClientSecrets = {new Secret("angularLupin".Sha256()) },
+                    ClientSecrets = {new Secret("angularUserClient".Sha256()) },
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true, //protect CSRF
                     RequireClientSecret = false,
@@ -53,7 +53,7 @@ public static class Config
 
                     RedirectUris =
                     {
-                        "http://localhost:4200",
+                        "http://localhost:4200/login-completed",
                         "http://localhost:4200/dash-board",
                         "http://localhost:4200/assets/silent-callback.html"
                     },
@@ -68,18 +68,30 @@ public static class Config
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Address,
                         "roles",
-                        "userAPI",
-                        "postAPI",
-                        "notificationAPI",
-                        "chatAPI"
+                        "userAPI"
                     }
                 },
                 new Client
                 {
-                    ClientId = "post_client_api",
-                    ClientName = "Post API Client",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("postapi".Sha256()) },
+                    ClientId = "angular_post_client",
+                    ClientName = "Angular Post Client",
+                    ClientUri = "http://localhost:4100",
+                    ClientSecrets = {new Secret("angularPostClient".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true, //protect CSRF
+                    RequireClientSecret = false,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+
+                    RedirectUris =
+                    {
+                        "http://localhost:4100/login-completed",
+                        "http://localhost:4100/news",
+                        "http://localhost:4100/assets/silent-callback.html"
+                    },
+
+                    PostLogoutRedirectUris = new List<string>() { "http://localhost:4100/signout-callback" },
+                    AllowedCorsOrigins = { "http://localhost:4100" },
 
                     AllowedScopes = new List<string>()
                     {
@@ -88,22 +100,39 @@ public static class Config
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Address,
                         "roles",
-                        "userAPI",
-                        "postAPI",
-                        "notificationAPI",
-                        "chatAPI"
-                    },
+                        "postAPI"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "angular_notification_client",
+                    ClientName = "Angular Notification Client",
+                    ClientUri = "http://localhost:4000",
+                    ClientSecrets = {new Secret("angularNotificationClient".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true, //protect CSRF
+                    RequireClientSecret = false,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
 
-                    // Redirect URIs and Post Logout Redirect URIs specific to the client host
                     RedirectUris =
                     {
-                        "http://localhost:7002/signin-oidc",
-                        "http://localhost:7002/signout-callback-oidc",
+                        "http://localhost:4000/login-completed",
+                        "http://localhost:4000/assets/silent-callback.html"
                     },
-                    PostLogoutRedirectUris =
+
+                    PostLogoutRedirectUris = new List<string>() { "http://localhost:4000/signout-callback" },
+                    AllowedCorsOrigins = { "http://localhost:4000" },
+
+                    AllowedScopes = new List<string>()
                     {
-                        "http://localhost:7002/signout-callback-oidc"
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Address,
+                        "roles",
+                        "notificationAPI"
                     }
-                }
+                },
         };
 }

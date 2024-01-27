@@ -13,7 +13,7 @@
           <a class="nav-link" href="#">News</a>
         </li>
       </ul>
-      <div *ngIf="(authService.currentUser$ | async); else loginBlock">
+      <!-- <div *ngIf="(authService.currentUser$ | async); else loginBlock">
         <form class="d-flex" role="search">
           <div class="btn-group text-end" dropdown>
             <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
@@ -29,13 +29,13 @@
             </ul>
           </div>
         </form>
-      </div>
-      <ng-template #loginBlock>
+      </div> -->
+      <!-- <ng-template #loginBlock> -->
         <form class="d-flex" role="search">
           <a class="btn btn-outline-success" type="submit" (click)="login()">Login</a>
           <a class="btn btn-outline-success ms-2" type="submit" (click)="logout()">Logout</a>
         </form>
-      </ng-template>
+      <!-- </ng-template> -->
     </div>
   </div>
 </nav>
