@@ -38,7 +38,9 @@
 						"styles": [
 							"projects/host-app/src/styles.scss"
 						],
-						"scripts": [],
+						"scripts": [
+							"./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+						],
 						"main": "projects/host-app/src/main.ts",
 						"extraWebpackConfig": "projects/host-app/webpack.config.js",
 						"commonChunk": false
@@ -260,7 +262,9 @@
 						"styles": [
 							"projects/post-app/src/styles.scss"
 						],
-						"scripts": [],
+						"scripts": [
+							"./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+						],
 						"main": "projects/post-app/src/main.ts",
 						"extraWebpackConfig": "projects/post-app/webpack.config.js",
 						"commonChunk": false
@@ -472,6 +476,39 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/auth-lib/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "shared-lib": {
+      "projectType": "library",
+      "root": "projects/shared-lib",
+      "sourceRoot": "projects/shared-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/shared-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/shared-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/shared-lib/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

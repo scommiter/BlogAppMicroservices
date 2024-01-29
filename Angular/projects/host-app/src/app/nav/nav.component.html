@@ -10,12 +10,25 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">News</a>
+            <a class="nav-link" [routerLink]="['/post']" [state]="{ key: token }">News</a>
           </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/user-dashboard']" [state]="{ key: token }">Dashboard</a>
+          </li> -->
         </ul>
         <div *ngIf="(authService.currentUser$ | async); else loginBlock">
           <form class="d-flex" role="search">
-            <div class="btn-group text-end" dropdown>
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{authService.getUsername()}} <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" class="dropdown-menu dropdown-menu-dark" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item pointer-cursor" [routerLink]="['/user-dashboard']" [state]="{ key: token }">Dashboard</a></li>
+                <li role="menuitem"><a class="dropdown-item pointer-cursor" (click)="logout()">Sign out</a>
+                </li>
+              </ul>
+            </div>
+            <!-- <div class="dropdown">
               <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                 aria-controls="dropdown-basic">
                 {{authService.getUsername()}} <span class="caret"></span>
@@ -27,7 +40,7 @@
                 <li role="menuitem"><a class="dropdown-item" (click)="logout()">Sign out</a>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </form>
         </div>
         <ng-template #loginBlock>

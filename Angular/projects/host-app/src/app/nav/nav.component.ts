@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthLibService } from 'auth-lib';
 
 @Component({
@@ -6,8 +6,13 @@ import { AuthLibService } from 'auth-lib';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })
-export class NavComponent {
+export class NavComponent implements OnInit{
+  token!: any;
+  
   constructor(public authService: AuthLibService) {
+  }
+  ngOnInit(): void {
+    this.token = this.authService.getToken;
   }
 
   async login(){

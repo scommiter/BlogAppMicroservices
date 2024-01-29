@@ -18,5 +18,11 @@ export class DashboardComponent implements OnInit{
       const value = history.state.key;
       console.log("TOKEN", value);
     });
+
+    // Another way to receive data from host-app
+    // this.route.data.subscribe(data => {
+    //   const inputText = data['inputText'];
+    //   console.log('Received data:', inputText);
+    // });
   }
 }

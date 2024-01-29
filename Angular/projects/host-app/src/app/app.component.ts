@@ -23,6 +23,5 @@ export class AppComponent implements OnInit {
       this.userAuthenticated = userAuthenticated;
     })
     this.authService.setUser();
-    console.log(this.authService.getToken)
   }
 }

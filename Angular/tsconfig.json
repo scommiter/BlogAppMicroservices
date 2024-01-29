@@ -4,6 +4,9 @@
     "paths": {
       "auth-lib": [
         "./projects/auth-lib/src/public-api.ts"
+      ],
+      "shared-lib": [
+        "./projects/shared-lib/src/public-api.ts"
       ]
     },
     "outDir": "./dist/out-tsc",

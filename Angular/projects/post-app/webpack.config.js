@@ -11,7 +11,8 @@ sharedMappings.register(
 module.exports = {
   output: {
     uniqueName: "postApp",
-    publicPath: "auto"
+    publicPath: "auto",
+    scriptType: "text/javascript"
   },
   optimization: {
     runtimeChunk: false
@@ -26,14 +27,14 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-        library: { type: "module" },
+        // library: { type: "module" },
 
         // For remotes (please adjust)
-        // name: "postApp",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './projects/post-app/src/app/app.component.ts',
-        // },        
+        name: "postApp",
+        filename: "remoteEntry.js",
+        exposes: {
+            './PostModule': './projects/post-app/src/app/post/post.module.ts',
+        },        
         
         // For hosts (please adjust)
         // remotes: {

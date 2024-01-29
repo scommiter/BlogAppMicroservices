@@ -13,9 +13,18 @@ const routes: Routes = [
       component: HomeComponent ,
       canActivate: [AuthGuard]
   },
-  // { 
-  //     path: '**', 
-  //     component: HomeComponent 
+  // another way to transfer data
+  // {
+  //   path: 'user-dashboard',
+  //   loadChildren: () => 
+  //     loadRemoteModule({
+  //       remoteEntry: REMOTE_PORT.USER_APP_URL,
+  //       remoteName: 'userApp',
+  //       exposedModule: "./DashboardModule",
+  //     }).then(m => m.DashboardModule).catch(err => console.log(err)),
+  //     data: {
+  //       inputText: JSON.parse(localStorage.getItem('user')!)
+  //     }
   // },
   {
       path: 'user-dashboard',
@@ -26,7 +35,17 @@ const routes: Routes = [
           exposedModule: "./DashboardModule",
         }).then(m => m.DashboardModule).catch(err => console.log(err));
       }
-  }
+  },
+  {
+    path: 'post',
+    loadChildren: () => {
+      return loadRemoteModule({
+        remoteEntry: REMOTE_PORT.POST_APP_URL,
+        remoteName: 'postApp',
+        exposedModule: "./PostModule",
+      }).then(m => m.PostModule).catch(err => console.log(err));
+    }
+}
 ];
 
 @NgModule({

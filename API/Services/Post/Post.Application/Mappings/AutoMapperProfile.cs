@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Post.Domain.Dtos;
 using Post.Domain.Entities;
+using Shared.Dtos.Post;
 
 namespace Post.Application.Mappings
 {
@@ -11,6 +12,7 @@ namespace Post.Application.Mappings
             profile.CreateMap<Domain.Entities.Post, CreatePostDto>().ReverseMap();
             profile.CreateMap<Comment, CreateCommentDto>().ReverseMap();
             profile.CreateMap<Comment, DisplayCommentDto>().ReverseMap();
+            profile.CreateMap<Domain.Entities.Post, PostDto>().ReverseMap();
         }
     }
 }
