@@ -11,7 +11,8 @@ sharedMappings.register(
 module.exports = {
   output: {
     uniqueName: "userApp",
-    publicPath: "auto"
+    publicPath: "auto",
+    scriptType: "text/javascript"
   },
   optimization: {
     runtimeChunk: false
@@ -26,18 +27,19 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-        library: { type: "module" },
+        // library: { type: "module" },
 
         // For remotes (please adjust)
-        // name: "userApp",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './projects/user-app/src/app/app.component.ts',
-        // },        
+        name: "userApp",
+        filename: "remoteEntry.js",
+        exposes: {
+          './DashboardModule': './projects/user-app/src/app/dashboard/dashboard.module.ts',
+        },        
         
         // For hosts (please adjust)
         // remotes: {
-        //     "chatApp": "http://localhost:4200/remoteEntry.js",
+        //     "hostApp": "http://localhost:4000/remoteEntry.js",
+        //     "chatApp": "http://localhost:4300/remoteEntry.js",
         //     "postApp": "http://localhost:4200/remoteEntry.js",
 
         // },
@@ -47,6 +49,7 @@ module.exports = {
           "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
           "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
           "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+          // ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
 
           ...sharedMappings.getDescriptors()
         })

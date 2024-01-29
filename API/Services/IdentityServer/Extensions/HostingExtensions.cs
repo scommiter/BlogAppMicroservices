@@ -30,7 +30,7 @@ internal static class HostingExtensions
 
         // uncomment if you want to add a UI
         app.UseStaticFiles();
-        app.UseCors("CorsPolicy");
+        app.UseCors("AllowAll");
         app.UseRouting();
 
         //set cookie policy before authentication/authorization setup

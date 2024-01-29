@@ -20,7 +20,7 @@ namespace IdentityServer.Extensions
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("Policy", builder => builder
+                options.AddPolicy("AllowAll", builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());

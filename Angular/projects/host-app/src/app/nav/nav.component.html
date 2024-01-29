@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+      <a class="navbar-brand" href="#">Blog</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">News</a>
+          </li>
+        </ul>
+        <div *ngIf="(authService.currentUser$ | async); else loginBlock">
+          <form class="d-flex" role="search">
+            <div class="btn-group text-end" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-basic">
+                {{authService.getUsername()}} <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item">Action</a></li>
+                <li role="menuitem"><a class="dropdown-item">Another action</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="logout()">Sign out</a>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+        <ng-template #loginBlock>
+          <form class="d-flex" role="search">
+            <a class="btn btn-outline-success" type="submit" (click)="login()">Login</a>
+            <a class="btn btn-outline-success ms-2" type="submit" (click)="logout()">Logout</a>
+          </form>
+        </ng-template>
+      </div>
+    </div>
+  </nav>

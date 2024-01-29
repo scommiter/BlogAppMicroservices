@@ -37,8 +37,9 @@ module.exports = {
         
         // For hosts (please adjust)
         // remotes: {
-        //     "postApp": "http://localhost:4300/remoteEntry.js",
-        //     "userApp": "http://localhost:4200/remoteEntry.js",
+        //     "hostApp": "http://localhost:4000/remoteEntry.js",
+        //     "postApp": "http://localhost:4200/remoteEntry.js",
+        //     "userApp": "http://localhost:4100/remoteEntry.js",
 
         // },
 

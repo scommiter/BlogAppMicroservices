@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserDashboardComponent } from './user-dashboard.component';
+import { AuthLibComponent } from './auth-lib.component';
 
-describe('UserDashboardComponent', () => {
-  let component: UserDashboardComponent;
-  let fixture: ComponentFixture<UserDashboardComponent>;
+describe('AuthLibComponent', () => {
+  let component: AuthLibComponent;
+  let fixture: ComponentFixture<AuthLibComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserDashboardComponent]
+      declarations: [AuthLibComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UserDashboardComponent);
+    fixture = TestBed.createComponent(AuthLibComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

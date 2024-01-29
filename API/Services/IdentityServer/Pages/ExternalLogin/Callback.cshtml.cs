@@ -23,12 +23,8 @@ public class Callback : PageModel
     public Callback(
         IIdentityServerInteractionService interaction,
         IEventService events,
-        ILogger<Callback> logger,
-        TestUserStore users = null)
+        ILogger<Callback> logger)
     {
-        // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-        _users = users ?? throw new Exception("Please call 'AddTestUsers(TestUsers.Users)' on the IIdentityServerBuilder in Startup or remove the TestUserStore from the AccountController.");
-
         _interaction = interaction;
         _logger = logger;
         _events = events;
