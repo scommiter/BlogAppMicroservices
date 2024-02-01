@@ -17,7 +17,13 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddControllers();
-    builder.Services.AddCors();
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll", builder => builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+    });
 
     builder.Services.AddAuthentication("Bearer")
         .AddJwtBearer("Bearer", options =>
@@ -46,7 +52,7 @@ try
         app.UseSwaggerUI();
     }
 
-    app.UseCors();
+    app.UseCors("AllowAll");
     app.UseRouting();
 
     app.UseAuthentication();

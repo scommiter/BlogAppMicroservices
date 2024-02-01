@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { PostModule } from './post/post.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from 'auth-lib';
-import { ErrorInterceptor } from 'auth-lib';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PostComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, PostModule],
-  schemas: [],
-  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

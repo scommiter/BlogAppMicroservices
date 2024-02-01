@@ -16,7 +16,7 @@ export class PostService {
         currentPage: number
       ): Observable<PageResultDto<PostDto>> {
         return this.http.get<PageResultDto<PostDto>>(
-          `${PORT.postAPI}/post/getAll?Page=${currentPage}&Limit=${maxResultCount}`
+          `${PORT.postAPI}/Posts/getAll?Page=${currentPage}&Limit=${maxResultCount}`
         );
       }
 }

@@ -17,17 +17,18 @@ export class PostComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // this.getAllPost();
+    this.getAllPost();
   }
 
   getAllPost(){
+    console.log("GET ALL POST start");
     this.postService.getProducts(10, 1)
-    .pipe(takeUntil(this.ngUnsubscribe))
-          .subscribe({
-            next: (response: PageResultDto<PostDto>) => {
-              console.log("GET ALL POST", response.items);
-            },
-            error: () => {},
-          })
+      .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe({
+              next: (response: PageResultDto<PostDto>) => {
+                console.log("GET ALL POST", response.items);
+              },
+              error: () => {},
+            })
   }
 }

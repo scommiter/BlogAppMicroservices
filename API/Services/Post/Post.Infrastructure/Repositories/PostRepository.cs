@@ -1,6 +1,7 @@
 ﻿using Contracts.Common;
 using Infrastructure;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Post.Application.Commons.Interfaces;
 using Post.Domain.Dtos;
 using Post.Infrastructure.Persistence;
@@ -10,8 +11,10 @@ namespace Post.Infrastructure.Repositories
 {
     public class PostRepository : RepositoryBase<Domain.Entities.Post, Guid, DataContext>, IPostRepository
     {
+        private DataContext _dataContext;
         public PostRepository(DataContext dbContext, IUnitOfWork<DataContext> unitOfWork) : base(dbContext, unitOfWork)
         {
+            _dataContext = dbContext;
         }
 
         public async Task CreatePost(Domain.Entities.Post post)
@@ -30,10 +33,13 @@ namespace Post.Infrastructure.Repositories
                                     Content = p.Content,
                                     UserName = p.UserName
                                 });
+            var totalCount = _dataContext.Posts.Count();
             var pageResult = new PagedResult<PostDto>()
             {
                 Items = postPagings.ToList(),
-                TotalRecords = posts.Count()
+                TotalRecords = totalCount,
+                PageSize = pagingRequest.Limit,
+                PageIndex = pagingRequest.Page
             };
             return pageResult;
         }
