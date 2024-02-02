@@ -37,7 +37,7 @@ const routes: Routes = [
       }
   },
   {
-    path: 'post',
+    path: '',
     loadChildren: () => {
       return loadRemoteModule({
         remoteEntry: REMOTE_PORT.POST_APP_URL,
@@ -45,7 +45,17 @@ const routes: Routes = [
         exposedModule: "./PostModule",
       }).then(m => m.PostModule).catch(err => console.log(err));
     }
-}
+  },
+  {
+    path: '',
+    loadChildren: () => {
+      return loadRemoteModule({
+        remoteEntry: REMOTE_PORT.POST_APP_URL,
+        remoteName: 'postApp',
+        exposedModule: "./PostDetailModule",
+      }).then(m => m.PostDetailModule).catch(err => console.log(err));
+    }
+  }
 ];
 
 @NgModule({

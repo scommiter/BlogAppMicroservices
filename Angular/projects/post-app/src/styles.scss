@@ -9,10 +9,19 @@
     --body-text-color: #596392;
     --navbar-footer-color: #F9F9F9;
     --blurred-letters: #8F9396;
+    --light-letters: #a5a9ac;
 }
 
 body{
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     color: var(--body-text-color);
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.bold-text {
+    font-weight: bold;
 }

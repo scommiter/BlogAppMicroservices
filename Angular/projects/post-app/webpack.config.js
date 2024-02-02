@@ -34,6 +34,7 @@ module.exports = {
         filename: "remoteEntry.js",
         exposes: {
             './PostModule': './projects/post-app/src/app/post/post.module.ts',
+            './PostDetailModule': './projects/post-app/src/app/post-detail/post-detail.module.ts',
         },        
         
         // For hosts (please adjust)
