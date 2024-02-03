@@ -93,9 +93,14 @@ namespace Post.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("descendant");
 
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Ancestor", "Descendant");
 
                     b.HasIndex("Descendant");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("TreePaths");
                 });
@@ -125,9 +130,17 @@ namespace Post.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Post.Domain.Entities.Post", "TreePathPost")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AncestorComment");
 
                     b.Navigation("DescendantComment");
+
+                    b.Navigation("TreePathPost");
                 });
 
             modelBuilder.Entity("Post.Domain.Entities.Comment", b =>

@@ -24,5 +24,12 @@ namespace Post.Infrastructure.Repositories
         }
 
         public async Task GetAllChildTreePathComment(int commentId) => await FindByCondition(x => x.Ancestor == commentId).ToListAsync();
+
+        public async Task<List<TreePath>> GetAllTreePath(List<int> commentIds)
+        {
+            var treePaths = FindAll();
+            var treePathsMapPost = treePaths.Where(e => commentIds.Contains(e.Ancestor));
+            return treePathsMapPost.ToList();
+        }
     }
 }

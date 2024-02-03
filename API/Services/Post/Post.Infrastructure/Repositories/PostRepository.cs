@@ -29,9 +29,12 @@ namespace Post.Infrastructure.Repositories
             var postPagings = posts.OrderByDescending(p => p.CreatedDate).Skip((pagingRequest.Page - 1) * pagingRequest.Limit)
                                 .Take(pagingRequest.Limit).Select(p => new PostDto
                                 {
+                                    Id = p.Id,
                                     Title = p.Title,
                                     Content = p.Content,
-                                    UserName = p.UserName
+                                    UserName = p.UserName,
+                                    CreateDate = p.CreatedDate,
+                                    UpdateDate = p.LastModifiedDate
                                 });
             var totalCount = _dataContext.Posts.Count();
             var pageResult = new PagedResult<PostDto>()

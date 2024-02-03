@@ -22,6 +22,7 @@ namespace Post.Api.Extensions
             services.AddDbContext<DataContext>(options => options.UseSqlServer(
                databaseSettings.ConnectionString
                 ));
+            services.AddScoped<Seed>().AddScoped<ILogger, Logger<Seed>>(); ;
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             services.AddHttpContextAccessor();
             services.AddScoped<IPostRepository, PostRepository>();

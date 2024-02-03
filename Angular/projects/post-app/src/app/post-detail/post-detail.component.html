@@ -13,21 +13,16 @@
                         <img class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="45" height="45">
                       </div>
                       <div class="col-md-11">
-                        <h5 class="card-title">Tiêu đề bài viết</h5>
-                        <p class="card-text"><i class="bi bi-globe-americas"></i> 9 giờ trước</p>
+                        <h5 class="card-title">{{postDto.title}}</h5>
+                        <p class="card-text">
+                            {{postDto.userName}} 
+                            <i class="bi bi-globe-americas" style="margin-left: 10px;"></i> {{ formatDate(postDto.createDate) }}
+                        </p>
                       </div>
                     </div>
                     <div class="border-top mt-2"></div>
                     <div class="mt-1 p-3">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut voluptas unde eum ullam laboriosam neque veritatis nesciunt magni ea impedit, ipsa consectetur repellendus vitae odit voluptatum quis dicta provident quos.
+                        {{postDto.content}}
                     </div>
                     <div class="row">
                         <div class="col-md-3">

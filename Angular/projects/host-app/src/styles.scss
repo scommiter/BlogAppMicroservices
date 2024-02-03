@@ -15,7 +15,7 @@
 
 body{
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--body-text-color);
 }
 
@@ -25,4 +25,9 @@ body{
 
 .bold-text {
     font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }

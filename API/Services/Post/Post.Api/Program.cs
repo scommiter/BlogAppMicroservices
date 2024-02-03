@@ -1,7 +1,9 @@
 using Common.Logging;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Post.Api.Extensions;
+using Post.Infrastructure.Persistence;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,6 +62,13 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var contextSeed = scope.ServiceProvider.GetRequiredService<Seed>();
+        await contextSeed.InitialiseAsync();
+        await contextSeed.SeedAsync();
+    }
 
     app.Run();
 }

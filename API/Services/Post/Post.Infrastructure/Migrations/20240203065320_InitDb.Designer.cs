@@ -12,8 +12,8 @@ using Post.Infrastructure.Persistence;
 namespace Post.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240113073739_InitDB")]
-    partial class InitDB
+    [Migration("20240203065320_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
