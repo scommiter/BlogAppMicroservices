@@ -36,107 +36,47 @@
                     </div>
                     <div class="border-top mt-3"></div>
                     <div class="mb-3 mt-3">
-                        <input type="text" class="form-control" id="textInput" placeholder="Comment ...">
+                        <input (keyup.enter)="onEnterKeyPress(textInput.value)" #textInput type="text" class="form-control" id="textInput" placeholder="Comment ...">
                     </div>   
-                     <!-- Comment  -->
-                    <div class="container mt-3">
-                        <div class="row">
-                            <div class="col-md-1 d-flex align-items-center justify-content-center pointer-cursor">
-                              <img class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="30" height="30">
-                            </div>
-                            <div class="col-md-11 comment-container d-flex align-items-center justify-content-center">
-                                <div class="col-md-10">
-                                    <div class="content">
-                                        <p class="card-text m-0 bold-text">JOHN SMITH</p>
-                                        <p class="card-text m-0">Yes, sir</p>
-                                        <div class="row mt-2 comment-text">
-                                            <div class="col-md-3 d-flex">
-                                                <div class="pointer-cursor"><i class="bi bi-star"></i> Like</div>
-                                                <div class="pointer-cursor" style="margin-left: 10px;"><i class="bi bi-reply"></i> Reply</div>
+
+                    <!-- COMMENTS -->
+                    <div class="content-wrapper">
+                        <ng-template #List let-items>
+                            <ul>
+                                <li *ngFor="let item of items" [ngClass]="{ 'parent-class': isParent(item) }"> 
+                                    <div class="mt-2">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-1 d-flex align-items-center justify-content-center pointer-cursor">
+                                                  <img class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="30" height="30">
+                                                </div>
+                                                <div class="col-md-11 comment-container d-flex align-items-center justify-content-center">
+                                                    <div class="col-md-10">
+                                                        <div class="content">
+                                                            <p class="card-text m-0 bold-text">{{item.author}}</p>
+                                                            <p class="card-text m-0">{{item.content}}</p>
+                                                            <div class="row mt-2 comment-text">
+                                                                <div class="col-md-3 d-flex">
+                                                                    <div class="pointer-cursor"><i class="bi bi-star"></i> Like</div>
+                                                                    <div class="pointer-cursor" style="margin-left: 10px;" (click)="focusOnInput(item.id)"><i class="bi bi-reply"></i> Reply</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 time-comment">
+                                                        <i class="bi bi-clock"></i> {{formatHours(item.createDate)}}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="bi bi-clock"></i> 10 phút trước
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-1">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-1 d-flex align-items-center justify-content-center pointer-cursor">
-                              <img class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="30" height="30">
-                            </div>
-                            <div class="col-md-10 comment-container d-flex align-items-center justify-content-center">
-                                <div class="col-md-10">
-                                    <div class="content">
-                                        <p class="card-text m-0 bold-text">JACK</p>
-                                        <p class="card-text m-0">HI, John, how are you?</p>
-                                        <div class="row mt-2 comment-text">
-                                            <div class="col-md-3 d-flex">
-                                                <div class="pointer-cursor"><i class="bi bi-star"></i> Like</div>
-                                                <div class="pointer-cursor" style="margin-left: 10px;"><i class="bi bi-reply"></i> Reply</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="bi bi-clock"></i> 1 phút trước
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-1">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-1 d-flex align-items-center justify-content-center pointer-cursor">
-                              <img class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="30" height="30">
-                            </div>
-                            <div class="col-md-9 comment-container d-flex align-items-center justify-content-center">
-                                <div class="col-md-10">
-                                    <div class="content">
-                                        <p class="card-text m-0 bold-text">JACK</p>
-                                        <p class="card-text m-0">HI, John, how are you?</p>
-                                        <div class="row mt-2 comment-text">
-                                            <div class="col-md-3 d-flex">
-                                                <div class="pointer-cursor"><i class="bi bi-star"></i> Like</div>
-                                                <div class="pointer-cursor" style="margin-left: 10px;"><i class="bi bi-reply"></i> Reply</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="bi bi-clock"></i> 1 phút trước
-                                </div>
-                            </div>
-                        </div>
+                                    <ng-container *ngTemplateOutlet="List; context:{ $implicit: item.items }"></ng-container>
+                                </li>
+                            </ul>
+                        </ng-template>
+                        <ng-container *ngTemplateOutlet="List; context:{ $implicit: commentPostDto | converter }"></ng-container>
                     </div>
-                      
-                    <div class="container mt-3">
-                        <div class="row">
-                            <div class="col-md-1 d-flex align-items-center justify-content-center pointer-cursor">
-                              <img class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="30" height="30">
-                            </div>
-                            <div class="col-md-11 comment-container d-flex align-items-center justify-content-center">
-                                <div class="col-md-10">
-                                    <div class="content">
-                                        <p class="card-text m-0 bold-text">LOI</p>
-                                        <p class="card-text m-0">HNMMMM</p>
-                                        <div class="row mt-2 comment-text">
-                                            <div class="col-md-3 d-flex">
-                                                <div class="pointer-cursor"><i class="bi bi-star"></i> Like</div>
-                                                <div class="pointer-cursor" style="margin-left: 10px;"><i class="bi bi-reply"></i> Reply</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <i class="bi bi-clock"></i> 10 phút trước
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                                     
-                </div>
+            </div>
         </div>
       </div>
   

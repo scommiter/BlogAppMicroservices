@@ -8,5 +8,7 @@ namespace Post.Application.Commons.Interfaces
         Task CreateComment(Comment comment);
         Task<IQueryable<Comment>> GetComment(int id);
         Task<IQueryable<Comment>> GetCommentByPostId(Guid id);
+
+        Task<List<TreeCommentDto>> CreateTreeComments(List<DisplayCommentDto> Comments, List<TreePathDto> TreePaths);
     }
 }

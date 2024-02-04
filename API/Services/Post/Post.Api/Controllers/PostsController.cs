@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Post.Api.Services;
 using Post.Application.Commons.Interfaces;
 using Post.Domain.Dtos;
+using Post.Infrastructure.Converters;
 using Shared.Dtos.Post;
 
 namespace Post.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostsController : ControllerBase
@@ -60,16 +62,16 @@ namespace Post.Api.Controllers
         [HttpGet("comment-post/{id}")]
         public async Task<ActionResult> GetComment(Guid id)
         {
-            var result = new DisplayPostDto();
+            var result = new List<TreeComment>();
 
             var post = _postRepository.GetPost(id);
             var comments = _commentRepository.GetCommentByPostId(post.Result.Id);
             var commentDto = comments.Result.ToList().Select(comment => _mapper.Map<DisplayCommentDto>(comment));
             var commentIds = commentDto.Select(c => c.Id).ToList();
             var treePath = _treePathRepository.GetAllTreePath(commentIds).Result;
-
-            result.Comments = commentDto.ToList();
-            result.TreePaths = treePath.Select(e => _mapper.Map<TreePathDto>(e)).ToList();
+            result = TreeCommentConverter.CreateTreeComment(commentDto.ToList(), treePath.Select(e => _mapper.Map<TreePathDto>(e)).ToList());
+            //result.Comments = commentDto.ToList();
+            //result.TreePaths = treePath.Select(e => _mapper.Map<TreePathDto>(e)).ToList();
             return Ok(result);
         }
 

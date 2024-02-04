@@ -34,10 +34,9 @@ namespace Post.Api.Controllers
             _identityService = identityService;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddComment(CreateCommentDto createCommentDto)
+        [HttpPost("create")]
+        public async Task<ActionResult> AddComment([FromBody] CreateCommentDto createCommentDto)
         {
-
             var comment = _mapper.Map<Comment>(createCommentDto);
             await _commentRepository.CreateComment(comment);
             if (createCommentDto.AncestorId != null)

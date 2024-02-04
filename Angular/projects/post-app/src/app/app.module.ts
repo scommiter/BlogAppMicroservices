@@ -9,9 +9,10 @@ import { JwtInterceptor } from 'auth-lib';
 import { PostComponent } from './post/post.component';
 import { PostDetailModule } from './post-detail/post-detail.module';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { ConverterPipe } from './pipes/convert.pipe';
 
 @NgModule({
-  declarations: [AppComponent, PostComponent, PostDetailComponent],
+  declarations: [AppComponent, PostComponent, PostDetailComponent, ConverterPipe],
   imports: [
     BrowserModule, 
     AppRoutingModule, 

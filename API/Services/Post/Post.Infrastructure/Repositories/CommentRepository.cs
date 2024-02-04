@@ -1,6 +1,7 @@
 ﻿using Infrastructure;
 using Infrastructure.Interfaces;
 using Post.Application.Commons.Interfaces;
+using Post.Domain.Dtos;
 using Post.Domain.Entities;
 using Post.Infrastructure.Persistence;
 
@@ -17,7 +18,8 @@ namespace Post.Infrastructure.Repositories
         public async Task CreateComment(Comment comment) => await CreateAsync(comment);
 
         public async Task<IQueryable<Comment>> GetCommentByPostId(Guid id)
-            => _dbContext.Comments
+        {
+            return _dbContext.Comments
                     .Join(
                         _dbContext.TreePaths,
                         c => c.Id,
@@ -33,7 +35,8 @@ namespace Post.Infrastructure.Repositories
                         Content = joinResult.Comment.Content,
                         CreatedDate = joinResult.Comment.CreatedDate,
                         LastModifiedDate = joinResult.Comment.LastModifiedDate
-                    });
+                    }).OrderByDescending(e => e.CreatedDate);
+        }
 
         public async Task<IQueryable<Comment>> GetComment(int id)
         => _dbContext.Comments
@@ -52,5 +55,19 @@ namespace Post.Infrastructure.Repositories
                         CreatedDate = joinResult.Comment.CreatedDate,
                         LastModifiedDate = joinResult.Comment.LastModifiedDate
                     });
+
+        public async Task<List<TreeCommentDto>> CreateTreeComments(List<DisplayCommentDto> Comments, List<TreePathDto> TreePaths)
+        {
+            var result = new List<TreeCommentDto>();
+
+            return result;
+        }
+
+        private List<TreeCommentDto> BuildTree(List<DisplayCommentDto> Comments, List<TreePathDto> TreePaths, List<TreeCommentDto> treeResult)
+        {
+
+
+            return treeResult;
+        }
     }
 }

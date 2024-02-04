@@ -17,14 +17,7 @@ namespace Post.Api.Services
         }
 
         public string GetUserIdentity()
-        {
-            foreach (var claim in _context.HttpContext.User.Claims)
-            {
-                Console.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
-            }
-
-            var test2 = _context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
-            return _context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        }
+            => _context.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+        
     }
 }
