@@ -69,5 +69,16 @@ namespace Post.Api.Controllers
             var commentDto = comments.Result.ToList().Select(comment => _mapper.Map<DisplayCommentDto>(comment));
             return Ok(commentDto);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteComment(int id)
+        {
+            var userId = _identityService.GetUserIdentity();
+            if (string.IsNullOrEmpty(userId)) return BadRequest("Username is Null");
+
+            await _treepathRepository.DeleteAllChildTreePathComment(id);
+            await _commentRepository.DeleteComment(id);
+            return Ok();
+        }
     }
 }

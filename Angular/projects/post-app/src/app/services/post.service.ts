@@ -43,4 +43,10 @@ export class PostService {
         createCommentDto
       );
     }
+
+    public deleteComment(id: number): Observable<any> {
+      return this.http.delete<any>(
+        `${PORT.postAPI}/Comments/${id}`
+      );
+    }
 }

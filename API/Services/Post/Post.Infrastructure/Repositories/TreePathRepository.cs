@@ -9,8 +9,10 @@ namespace Post.Infrastructure.Repositories
 {
     public class TreePathRepository : RepositoryMultiKeyBaseAsync<TreePath, DataContext>, ITreePathRepository
     {
+        private readonly DataContext _dbContext;
         public TreePathRepository(DataContext dbContext, IUnitOfWork<DataContext> unitOfWork) : base(dbContext, unitOfWork)
         {
+            _dbContext = dbContext; 
         }
 
         public async Task CreateTreePath(int commentId) => await CreateAsync(new TreePath(commentId, commentId));
@@ -19,8 +21,9 @@ namespace Post.Infrastructure.Repositories
 
         public async Task DeleteAllChildTreePathComment(int commentId)
         {
-            var listTreePaths = await FindByCondition(x => x.Ancestor == commentId).ToListAsync();
-            await DeleteListAsync(listTreePaths);
+            var commentIdsToDelete = GetCommentIdsToDelete(commentId);
+            var treePathsDeletes = FindAll().Where(e => commentIdsToDelete.Contains(e.Ancestor) || commentIdsToDelete.Contains(e.Descendant)).ToList();
+            await DeleteListAsync(treePathsDeletes);
         }
 
         public async Task GetAllChildTreePathComment(int commentId) => await FindByCondition(x => x.Ancestor == commentId).ToListAsync();
@@ -30,6 +33,22 @@ namespace Post.Infrastructure.Repositories
             var treePaths = FindAll();
             var treePathsMapPost = treePaths.Where(e => commentIds.Contains(e.Ancestor));
             return treePathsMapPost.ToList();
+        }
+
+        private IEnumerable<int> GetCommentIdsToDelete(int commentId)
+        {
+            var commentIds = new List<int> { commentId };
+            var descendantIds = _dbContext.TreePaths
+                .Where(e => e.Ancestor == commentId && e.Ancestor != e.Descendant)
+                .Select(e => e.Descendant)
+                .ToList();
+
+            foreach (var descendantId in descendantIds)
+            {
+                commentIds.AddRange(GetCommentIdsToDelete(descendantId));
+            }
+
+            return commentIds;
         }
     }
 }

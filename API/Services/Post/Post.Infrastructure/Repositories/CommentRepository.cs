@@ -1,9 +1,9 @@
 ﻿using Infrastructure;
 using Infrastructure.Interfaces;
 using Post.Application.Commons.Interfaces;
-using Post.Domain.Dtos;
 using Post.Domain.Entities;
 using Post.Infrastructure.Persistence;
+using System.ComponentModel.Design;
 
 namespace Post.Infrastructure.Repositories
 {
@@ -56,18 +56,27 @@ namespace Post.Infrastructure.Repositories
                         LastModifiedDate = joinResult.Comment.LastModifiedDate
                     });
 
-        public async Task<List<TreeCommentDto>> CreateTreeComments(List<DisplayCommentDto> Comments, List<TreePathDto> TreePaths)
+        public async Task DeleteComment(int id)
         {
-            var result = new List<TreeCommentDto>();
-
-            return result;
+            var commentIdsToDelete = GetCommentIdsToDelete(id);
+            var commentDeletes = FindAll().Where(e => commentIdsToDelete.Contains(e.Id)).ToList();
+            await DeleteListAsync(commentDeletes);
         }
 
-        private List<TreeCommentDto> BuildTree(List<DisplayCommentDto> Comments, List<TreePathDto> TreePaths, List<TreeCommentDto> treeResult)
+        private IEnumerable<int> GetCommentIdsToDelete(int commentId)
         {
+            var commentIds = new List<int> { commentId };
+            var descendantIds = _dbContext.TreePaths
+                .Where(e => e.Ancestor == commentId && e.Ancestor != e.Descendant)
+                .Select(e => e.Descendant)
+                .ToList();
 
+            foreach (var descendantId in descendantIds)
+            {
+                commentIds.AddRange(GetCommentIdsToDelete(descendantId));
+            }
 
-            return treeResult;
+            return commentIds;
         }
     }
 }
