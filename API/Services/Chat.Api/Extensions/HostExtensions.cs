@@ -56,7 +56,7 @@ namespace Chat.Api.Extensions
                 .Get<DatabaseSettings>()?.ConnectionString;
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseNpgsql(configuration.GetConnectionString(connectionString!));
+                options.UseNpgsql(connectionString);
             });
             return services;
         }

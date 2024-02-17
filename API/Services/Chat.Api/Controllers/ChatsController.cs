@@ -1,12 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Chat.Api.Dto;
+using Chat.Api.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Chat.Api.Controllers
 {
-    public class ChatsController : Controller
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ChatsController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IMessageRepository _messageRepository;
+        public ChatsController(IMessageRepository messageRepository)
         {
-            return View();
+            _messageRepository = messageRepository;
+        }                                                                                                                                                         
+
+        [HttpGet]
+        public async Task<IActionResult> GetMessages([FromQuery] MessageParams messageParams)
+        {
+            var data = await _messageRepository.GetMessageThread(messageParams);
+            return Ok(data);
         }
     }
 }

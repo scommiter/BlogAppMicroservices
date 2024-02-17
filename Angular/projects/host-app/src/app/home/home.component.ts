@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { loadRemoteModule } from '@angular-architects/module-federation';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthLibService } from 'auth-lib';
 
@@ -9,6 +10,8 @@ import { AuthLibService } from 'auth-lib';
 })
 export class HomeComponent implements OnInit{
   token!: any;
+  @ViewChild('placeHolder', { read: ViewContainerRef })
+  viewContainer!: ViewContainerRef;
   constructor(
     private authService: AuthLibService, 
     private router: Router){

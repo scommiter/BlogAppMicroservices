@@ -11,7 +11,8 @@ sharedMappings.register(
 module.exports = {
   output: {
     uniqueName: "chatApp",
-    publicPath: "auto"
+    publicPath: "auto",
+    scriptType: "text/javascript"
   },
   optimization: {
     runtimeChunk: false
@@ -26,14 +27,14 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-        library: { type: "module" },
+        library: { type: 'var', name: 'chatApp' },
 
         // For remotes (please adjust)
-        // name: "chatApp",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './projects/chat-app/src/app/app.component.ts',
-        // },        
+        name: "chatApp",
+        filename: "remoteEntry.js",
+        exposes: {
+          ChatBoxModule: './projects/chat-app/src/app/chat-box/chat-box.module.ts'
+        },        
         
         // For hosts (please adjust)
         // remotes: {

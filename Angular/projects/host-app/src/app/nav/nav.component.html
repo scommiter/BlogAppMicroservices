@@ -10,37 +10,48 @@
             <a class="nav-link active" aria-current="page" [routerLink]="['/home']">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/post']" [state]="{ key: token }">News</a>
+            <a class="nav-link" [routerLink]="['/postApp/post']" [state]="{ key: token }">News</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/user-dashboard']" [state]="{ key: token }">Dashboard</a>
-          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/chatApp/chat']" [state]="{ key: token }">Chat</a>
+          </li>
         </ul>
+        <a class="icon-chatbox pointer-cursor nav-link" (click)="showFederatedComponent()"><i class="bi bi-messenger"></i></a>
+        <!-- Trong template của component hiện tại -->
+        <ng-container #remoteContainer></ng-container>
+
+        <a class="icon-chatbox pointer-cursor">
+          <div class="dropdown">
+            <a href="" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bell-fill"></i></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+        </a>
         <div *ngIf="(authService.currentUser$ | async); else loginBlock">
           <form class="d-flex" role="search">
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i>
                 {{authService.getUsername()}} <span class="caret"></span>
               </button>
               <ul id="dropdown-basic" class="dropdown-menu dropdown-menu-dark" aria-labelledby="button-basic">
-                <li role="menuitem"><a class="dropdown-item pointer-cursor" [routerLink]="['/user-dashboard']" [state]="{ key: token }">Dashboard</a></li>
-                <li role="menuitem"><a class="dropdown-item pointer-cursor" (click)="logout()">Sign out</a>
+                <li role="menuitem">
+                  <a class="dropdown-item pointer-cursor" [routerLink]="['/user-dashboard']" [state]="{ key: token }">
+                    <i class="bi bi-gear"></i>
+                    Dashboard
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item pointer-cursor" (click)="logout()">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Sign out
+                  </a>
                 </li>
               </ul>
             </div>
-            <!-- <div class="dropdown">
-              <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-                aria-controls="dropdown-basic">
-                {{authService.getUsername()}} <span class="caret"></span>
-              </button>
-              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                <li role="menuitem"><a class="dropdown-item">Action</a></li>
-                <li role="menuitem"><a class="dropdown-item">Another action</a></li>
-                <li class="divider dropdown-divider"></li>
-                <li role="menuitem"><a class="dropdown-item" (click)="logout()">Sign out</a>
-                </li>
-              </ul>
-            </div> -->
           </form>
         </div>
         <ng-template #loginBlock>
@@ -50,5 +61,6 @@
           </form>
         </ng-template>
       </div>
+      
     </div>
   </nav>

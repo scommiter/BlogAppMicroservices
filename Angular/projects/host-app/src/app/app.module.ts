@@ -7,12 +7,14 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthLibModule, JwtInterceptor } from 'auth-lib';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FederatedComponent } from './federated/federated.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavComponent
+    NavComponent,
+    FederatedComponent
   ],
   imports: [
     BrowserModule,

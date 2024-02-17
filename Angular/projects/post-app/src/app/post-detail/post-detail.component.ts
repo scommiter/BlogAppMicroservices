@@ -97,7 +97,6 @@ export class PostDetailComponent implements OnInit {
   }
 
   removeComment(id: number){
-    console.log("HE", id);
     this.postService
       .deleteComment(id)
       .pipe(takeUntil(this.ngUnsubscribe))

@@ -37,7 +37,7 @@ const routes: Routes = [
       }
   },
   {
-    path: '',
+    path: 'postApp',
     loadChildren: () => {
       return loadRemoteModule({
         remoteEntry: REMOTE_PORT.POST_APP_URL,
@@ -47,7 +47,7 @@ const routes: Routes = [
     }
   },
   {
-    path: '',
+    path: 'postApp',
     loadChildren: () => {
       return loadRemoteModule({
         remoteEntry: REMOTE_PORT.POST_APP_URL,
@@ -55,7 +55,27 @@ const routes: Routes = [
         exposedModule: "./PostDetailModule",
       }).then(m => m.PostDetailModule).catch(err => console.log(err));
     }
-  }
+  },
+  {
+    path: 'chatApp',
+    loadChildren: () => {
+      return loadRemoteModule({
+        remoteEntry: REMOTE_PORT.CHAT_APP_URL,
+        remoteName: 'chatApp',
+        exposedModule: "ChatBoxModule",
+      }).then(m => m.ChatBoxModule).catch(err => console.log(err));
+    }
+  },
+  {
+    path: 'chatApp',
+    loadComponent: () => 
+      loadRemoteModule({
+        type: 'module',
+        remoteEntry: REMOTE_PORT.CHAT_APP_URL,
+        exposedModule: './ChatComponent'
+      })
+      .then(m => m.ChatComponent)
+  },
 ];
 
 @NgModule({

@@ -22,7 +22,7 @@ ng add @angular-architects/module-federation --project post-app --port 4200
 ng add @angular-architects/module-federation --project chat-app --port 4300
 
 # generate component in specific project
-ng g c src/app/dashboard --project=user-app --standalone false
+ng g c dashboard --project=user-app --standalone false
 
 # install IDP library
 npm install oidc-client-ts --save

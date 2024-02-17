@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'oidc-client-ts';
 import { AuthLibService } from 'auth-lib';
+import { FederatedComponentService } from '../services/federated.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,11 @@ import { AuthLibService } from 'auth-lib';
 export class AppComponent implements OnInit {
   title = 'host-app';
   public userAuthenticated = false;
-  constructor(private authService: AuthLibService){
+  showFederatedComponent: boolean = false;
+
+  constructor(
+    private authService: AuthLibService,
+    private federatedComponentService: FederatedComponentService){
     this.authService.loginChanged
     .subscribe(userAuthenticated => {
       this.userAuthenticated = userAuthenticated;
@@ -24,4 +28,16 @@ export class AppComponent implements OnInit {
     })
     this.authService.setUser();
   }
+
+  openFederatedComponent() {
+    this.showFederatedComponent = true;
+  }
+
+  closeFederatedComponent() {
+    this.showFederatedComponent = false;
+  }
+
+  // get showFederatedComponent(): boolean {
+  //   return this.federatedComponentService.showFederatedComponent$;
+  // }
 }

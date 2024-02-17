@@ -1,0 +1,12 @@
+.chat-modal {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px; /* Độ rộng của cửa sổ chat */
+    height: 400px; /* Chiều cao của cửa sổ chat */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    /* Thêm các kiểu khác tùy theo thiết kế của bạn */
+  }
+  
