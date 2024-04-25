@@ -13,7 +13,7 @@
             <a class="nav-link" [routerLink]="['/postApp/post']" [state]="{ key: token }">News</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/chatApp/chat']" [state]="{ key: token }">Chat</a>
+            <a class="nav-link" [routerLink]="['/chatApp/chat']" [state]="{ key: token }" (click)="messageService.toggleChat()">Chat</a>
           </li>
         </ul>
         <a class="icon-chatbox pointer-cursor nav-link" (click)="showFederatedComponent()"><i class="bi bi-messenger"></i></a>

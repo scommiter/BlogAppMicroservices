@@ -1,12 +1,131 @@
 .chat-modal {
+    display: flex;
+    flex-direction: column;
+
     position: fixed;
     bottom: 0;
-    right: 0;
-    width: 300px; /* Độ rộng của cửa sổ chat */
-    height: 400px; /* Chiều cao của cửa sổ chat */
+    right: 60px;
+    width: 300px;
+    height: 400px;
     background-color: white;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
-    /* Thêm các kiểu khác tùy theo thiết kế của bạn */
-  }
+    padding: 10px;
+}
+
+.chat-container {
+    max-width: 600px;
+    margin: auto;
+}
   
+.message {
+    margin-bottom: 10px;
+}
+  
+.message .sender {
+    font-weight: bold;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid rgb(165, 165, 170);
+}
+  
+.icon-header {
+    display: flex;
+}
+  
+.icon-header i {
+    margin-left: 10px;
+}
+
+.name-header{
+    display: flex;
+    text-align: center;
+}
+.name-header img{
+    margin-right: 10px;
+    align-self: center;
+    border-radius: 50%;
+}
+.centered-text {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 35px;
+    margin-bottom: 0;
+  }
+
+// BODY
+.chat-body{
+    display: flex;
+    margin-top: 20px;
+    padding: 10px;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto; /* Thanh cuộn dọc */
+    max-height: 300px;
+}
+
+.message-wrapper {
+    display: flex;
+  }
+
+.message{
+    display: flex;
+    word-wrap: break-word;
+}
+
+.message img{
+    margin-right: 15px;
+    align-self: center;
+}
+
+.text-muted {
+    line-height: 25px; /* Chiều cao của dòng tương ứng với chiều cao của ảnh */
+    background-color: rgb(177, 179, 180);
+    padding: 8px 15px;
+    border-radius: 10px;
+}
+
+.sender {
+    margin-left: auto; 
+    display: flex;
+}
+
+
+
+// FOOTER
+.chat-footer {
+    margin-top: auto; /* Push footer to the bottom */
+    display: flex;
+}
+
+.input-group{
+    display: flex;
+    flex: 1; 
+}
+
+.chat-footer .form-control {
+    width: calc(100% - 50px); /* Calculate width of input - width of button */
+    /* 85px is the approximate width of the button including padding */
+}
+
+.input-group input{
+    padding: 10px;
+}
+
+.input-group button{
+    height: 100%;
+    cursor: pointer;
+}
+
+i{
+    cursor: pointer;
+}
+i:hover{
+    color: red;
+}

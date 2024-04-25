@@ -5,6 +5,7 @@ import { REMOTE_PORT } from '../../shared/constants/remote.constant';
 import { Router } from '@angular/router';
 import { FederatedComponentService } from '../../services/federated.service';
 import { AppComponent } from '../app.component';
+import { MessageService } from '../../../../shared-lib/src/lib/services/message.service';
 
 @Component({
   selector: 'app-nav',
@@ -17,6 +18,7 @@ export class NavComponent implements OnInit{
   
   constructor(
     public authService: AuthLibService,
+    public messageService: MessageService,
     public remoteLoaderService: RemoteLoaderService,
     private router: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
