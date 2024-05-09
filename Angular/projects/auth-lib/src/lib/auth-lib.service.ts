@@ -26,6 +26,10 @@ export class AuthLibService {
     return this._userManager.signinRedirect();
   }
 
+  get CurrentUser(){
+    return this._user;
+  }
+
   async signout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null!);

@@ -1,5 +1,7 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MESSAGE_TYPE } from '../../enum/message-type';
+import { MessageService } from '../../services/message.service';
+import { AuthLibService } from 'auth-lib';
 
 @Component({
   selector: 'app-chat',
@@ -7,9 +9,9 @@ import { MESSAGE_TYPE } from '../../enum/message-type';
   styleUrl: './chat.component.scss',
   exportAs: 'ChatComponent'
 })
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   messageType = MESSAGE_TYPE;
-
+  userName: string = '';
   messages: Message[] = [
     {
       content: 'Hello, my name is Lupin',
@@ -21,12 +23,29 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
   ];
 
+  constructor(
+    public messageService: MessageService,
+    public authService: AuthLibService
+  ){
+  }
+
   ngOnInit(): void {
+    console.log("Token", this.authService.getToken);
+    console.log("UserName", this.authService.CurrentUser);
+    this.userName = this.authService.getUsername() as string;
+    this.messageService.createHubConnection(this.authService.CurrentUser, this.userName);
+  }
+
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
   }
 
   sendMessage(input: HTMLInputElement): void {
-    this.messages.push({ content: input.value, type: MESSAGE_TYPE.SENDER });
-    input.value = '';
+    console.log("Sent");
+    // this.messages.push({ content: input.value, type: MESSAGE_TYPE.SENDER });
+    this.messageService.sendMessage(this.userName, input.value).then(() => {
+      input.value = '';
+    })
   }
 
   onKeyPress(event: KeyboardEvent, input: HTMLInputElement): void {

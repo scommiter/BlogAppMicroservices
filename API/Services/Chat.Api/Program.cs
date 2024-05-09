@@ -1,4 +1,5 @@
 using Chat.Api.Extensions;
+using Chat.Api.SignalR;
 using Common.Logging;
 using Serilog;
 
@@ -19,9 +20,18 @@ try
         app.UseSwaggerUI();
     }
 
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
+
     app.UseHttpsRedirection();
 
+    app.UseAuthentication();
+    app.UseAuthorization();
+
     app.MapControllers();
+
+    app.MapHub<PresenceHub>("hubs/presence");
+    app.MapHub<MessageHub>("hubs/message");
 
     app.Run();
 }
