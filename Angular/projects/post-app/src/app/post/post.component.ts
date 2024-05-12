@@ -6,6 +6,7 @@ import { PostDto } from '../entites/post.dto';
 import { format } from 'date-fns';
 import { Router } from '@angular/router';
 import { SharedService } from '../services/shared.service';
+import { AuthLibService } from 'auth-lib';
 
 @Component({
   selector: 'app-post',
@@ -20,7 +21,8 @@ export class PostComponent implements OnInit{
   constructor(
     private postService: PostService,
     private sharedService: SharedService,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthLibService) {
 
   }
 

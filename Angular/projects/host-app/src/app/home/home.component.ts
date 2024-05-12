@@ -1,4 +1,3 @@
-import { loadRemoteModule } from '@angular-architects/module-federation';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthLibService } from 'auth-lib';

@@ -17,7 +17,7 @@ export class MessageService {
   constructor(private http: HttpClient) { }
 
   createHubConnection(user: User, otherUsername: string){
-    
+    console.log("Hello", user.access_token);
     this.hubConnection = new HubConnectionBuilder()
         .withUrl(PORT.hubUrl+ 'message?user=' + otherUsername, {
         accessTokenFactory: ()=> user.access_token

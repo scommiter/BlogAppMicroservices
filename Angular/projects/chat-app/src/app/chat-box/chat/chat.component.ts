@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild }
 import { MESSAGE_TYPE } from '../../enum/message-type';
 import { MessageService } from '../../services/message.service';
 import { AuthLibService } from 'auth-lib';
+import { User } from 'oidc-client-ts';
 
 @Component({
   selector: 'app-chat',
@@ -22,6 +23,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       type: MESSAGE_TYPE.SENDER
     }
   ];
+  private _user!: User;
 
   constructor(
     public messageService: MessageService,
@@ -30,10 +32,9 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    console.log("Token", this.authService.getToken);
-    console.log("UserName", this.authService.CurrentUser);
-    this.userName = this.authService.getUsername() as string;
-    this.messageService.createHubConnection(this.authService.CurrentUser, this.userName);
+    this._user = JSON.parse(localStorage.getItem('user')!);
+    this.userName = this._user.profile.sub;
+    this.messageService.createHubConnection(this._user, this.userName);
   }
 
   ngOnDestroy(): void {
@@ -41,7 +42,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   sendMessage(input: HTMLInputElement): void {
-    console.log("Sent");
     // this.messages.push({ content: input.value, type: MESSAGE_TYPE.SENDER });
     this.messageService.sendMessage(this.userName, input.value).then(() => {
       input.value = '';

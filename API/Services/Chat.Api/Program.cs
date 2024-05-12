@@ -4,6 +4,7 @@ using Common.Logging;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Host.UseSerilog(Serilogger.Configure);
 
 try
@@ -11,6 +12,17 @@ try
     builder.Host.AddAppConfigurations();
     builder.Services.AddConfigurationSettings(builder.Configuration);
     builder.Services.AddInfrastructure(builder.Configuration);
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: MyAllowSpecificOrigins,
+                          builder =>
+                          {
+                              builder.WithOrigins("http://localhost:4000")
+                                          .AllowAnyHeader()
+                                          .AllowAnyMethod()
+                                          .AllowCredentials();
+                          });
+    });
 
     var app = builder.Build();
 
@@ -29,6 +41,8 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+
+    app.UseCors(MyAllowSpecificOrigins);
 
     app.MapHub<PresenceHub>("hubs/presence");
     app.MapHub<MessageHub>("hubs/message");
