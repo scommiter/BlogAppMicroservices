@@ -15,7 +15,7 @@ public static class Config
               new IdentityResource(
                     "roles",
                     "Your role(s)",
-                    new List<string>() { "role" })
+                    new List<string>() { "role" }) 
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
