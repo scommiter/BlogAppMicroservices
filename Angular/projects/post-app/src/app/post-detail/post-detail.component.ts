@@ -5,31 +5,37 @@ import { PostDto } from '../entites/post.dto';
 import { format, formatDistanceToNow } from 'date-fns';
 import { CreateCommentDto, TreeComment } from '../entites/comment.post.dto';
 import { User } from 'oidc-client-ts';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
-  styleUrl: './post-detail.component.scss'
+  styleUrl: './post-detail.component.scss',
 })
 export class PostDetailComponent implements OnInit {
-
   private ngUnsubscribe = new Subject<void>();
 
   postDto!: PostDto;
   commentPostDto!: any;
   idPost: string = '';
   createCommentDto: CreateCommentDto = {
-    postId: "",
+    postId: '',
     ancestorId: null,
-    author: "",
-    content: ""
+    author: '',
+    content: '',
   };
   @ViewChild('textInput', { static: false }) textInput!: ElementRef;
-  
-  constructor(private postService: PostService) { }
+
+  constructor(
+    private postService: PostService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.idPost = JSON.parse(localStorage.getItem('idPost')!)
+    this.route.params.subscribe((params) => {
+      this.idPost = params['id'];
+    });
+    this.idPost = JSON.parse(localStorage.getItem('idPost')!);
     this.getPostById(this.idPost);
     this.getAllComment(this.idPost);
   }
@@ -39,7 +45,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   formatHours(date: Date): any {
-    return  formatDistanceToNow(date, { addSuffix: true });
+    return formatDistanceToNow(date, { addSuffix: true });
   }
 
   isParent(item: any): boolean {
@@ -62,29 +68,31 @@ export class PostDetailComponent implements OnInit {
   }
 
   // API Call
-  getPostById(id: string){
-    this.postService.getPostById(id)
+  getPostById(id: string) {
+    this.postService
+      .getPostById(id)
       .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe({
-              next: (response: PostDto) => {
-                this.postDto = response;
-              },
-              error: () => {},
-    })
+      .subscribe({
+        next: (response: PostDto) => {
+          this.postDto = response;
+        },
+        error: () => {},
+      });
   }
 
-  getAllComment(id: string){
-    this.postService.getAllComment(id)
+  getAllComment(id: string) {
+    this.postService
+      .getAllComment(id)
       .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe({
-              next: (response: TreeComment) => {
-                this.commentPostDto = response;
-              },
-              error: () => {},
-    })
+      .subscribe({
+        next: (response: TreeComment) => {
+          this.commentPostDto = response;
+        },
+        error: () => {},
+      });
   }
 
-  createComment(createCommentDto: CreateCommentDto){
+  createComment(createCommentDto: CreateCommentDto) {
     this.postService
       .createComment(createCommentDto)
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -92,11 +100,11 @@ export class PostDetailComponent implements OnInit {
         next: () => {
           this.getAllComment(this.idPost);
         },
-        error: () => {}
-      })
+        error: () => {},
+      });
   }
 
-  removeComment(id: number){
+  removeComment(id: number) {
     this.postService
       .deleteComment(id)
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -104,8 +112,7 @@ export class PostDetailComponent implements OnInit {
         next: () => {
           this.getAllComment(this.idPost);
         },
-        error: () => {}
-      })
+        error: () => {},
+      });
   }
-  
 }

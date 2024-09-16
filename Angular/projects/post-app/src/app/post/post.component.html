@@ -1,66 +1,93 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-3">
-      </div>
-  
-      <div class="col-6">
-        <div *ngFor="let post of postDtos; let i = index">
-          <div class="container mt-5">
-            <div class="col-md mx-auto">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row pointer-cursor" (click)="redirectToDetailPost(post.id)">
-                    <div class="col-md-1 d-flex align-items-center justify-content-center pointer-cursor">
-                      <img class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="35" height="35">
-                    </div>
-                    <div class="col-md-11">
-                      <h5 class="card-title">{{ post.title }}</h5>
-                      <p class="card-text">
-                        {{post.userName}} 
-                        <i class="bi bi-globe-americas" style="margin-left: 10px;"></i> {{ formatDate(post.createDate) }}
-                      </p>
-                    </div>
+  <div class="row">
+    <div class="col-3"></div>
+
+    <div class="col-6">
+      <div *ngFor="let post of postDtos; let i = index">
+        <div class="container mt-5">
+          <div class="col-md mx-auto">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div
+                  class="row pointer-cursor"
+                  (click)="redirectToDetailPost(post.id)"
+                >
+                  <div
+                    class="col-md-1 d-flex align-items-center justify-content-center pointer-cursor"
+                  >
+                    <img
+                      class="img-fluid rounded-circle"
+                      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                      alt="avatar"
+                      width="35"
+                      height="35"
+                    />
                   </div>
-                  <div class="border-top mt-2"></div>
-                  <div class="mt-1 mb-3 p-4 context-text-custom max-lines">
-                    {{ post.content }}
-                  </div>                  
-                  <div class="row">
-                    <div class="col-md-3">
-                      <i class="bi bi-hand-thumbs-up mx-3 pointer-cursor pointer-cursor-hover"></i>
-                      <i class="bi bi-hand-thumbs-down pointer-cursor pointer-cursor-hover"></i>
-                    </div>
-                    <div class="col-md-6"></div>
-                    <div class="col-md-3">
-                      <i class="bi bi-chat-square mx-3 pointer-cursor pointer-cursor-hover"><a routerLink="/post/detail" class="pointer-cursor pointer-cursor-hover"> Comment</a></i>
-                      <i class="bi bi-share pointer-cursor pointer-cursor-hover"> Share</i>
-                    </div>
+                  <div class="col-md-11">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">
+                      {{ post.userName }}
+                      <i
+                        class="bi bi-globe-americas"
+                        style="margin-left: 10px"
+                      ></i>
+                      {{ formatDate(post.createDate) }}
+                    </p>
+                  </div>
+                </div>
+                <div class="border-top mt-2"></div>
+                <div class="mt-1 mb-3 p-4 context-text-custom max-lines">
+                  {{ post.content }}
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <i
+                      class="bi bi-hand-thumbs-up mx-3 pointer-cursor pointer-cursor-hover"
+                    ></i>
+                    <i
+                      class="bi bi-hand-thumbs-down pointer-cursor pointer-cursor-hover"
+                    ></i>
+                  </div>
+                  <div class="col-md-6"></div>
+                  <div class="col-md-3">
+                    <i
+                      class="bi bi-chat-square mx-3 pointer-cursor pointer-cursor-hover"
+                      ><a
+                        routerLink="/post/detail"
+                        class="pointer-cursor pointer-cursor-hover"
+                      >
+                        Comment</a
+                      ></i
+                    >
+                    <i class="bi bi-share pointer-cursor pointer-cursor-hover">
+                      Share</i
+                    >
                   </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
-        </div>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
       </div>
-  
-      <div class="col-3">
-      </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
+
+    <div class="col-3"></div>
   </div>
+</div>

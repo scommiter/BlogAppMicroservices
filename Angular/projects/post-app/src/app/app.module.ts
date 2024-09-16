@@ -12,16 +12,22 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { ConverterPipe } from './pipes/convert.pipe';
 
 @NgModule({
-  declarations: [AppComponent, PostComponent, PostDetailComponent, ConverterPipe],
+  declarations: [
+    AppComponent,
+    PostComponent,
+    PostDetailComponent,
+    ConverterPipe,
+  ],
   imports: [
-    BrowserModule, 
-    AppRoutingModule, 
-    HttpClientModule, 
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
     PostModule,
-    PostDetailModule],
+    PostDetailModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
