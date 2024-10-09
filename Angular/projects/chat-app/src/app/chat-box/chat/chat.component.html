@@ -1,26 +1,50 @@
 <div class="chat-modal" id="myModal">
-    <div class="chat-header">
-      <div class="name-header">
-        <img class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="35" height="35">
-        <h6 class="centered-text">Arasen Lupin</h6>
-      </div>
-      <div class="icon-header">
-        <i class="bi bi-telephone"></i>
-        <i class="bi bi-camera-video"></i>
-        <i class="bi bi-x-lg" (click)="closeModal()"></i>
+  <div class="chat-header">
+    <div class="name-header">
+      <img
+        class="img-fluid rounded-circle"
+        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+        alt="avatar"
+        width="35"
+        height="35"
+      />
+      <h6 class="centered-text">lupan</h6>
+    </div>
+    <div class="icon-header">
+      <i class="bi bi-telephone"></i>
+      <i class="bi bi-camera-video"></i>
+      <i class="bi bi-x-lg" (click)="closeModal()"></i>
+    </div>
+  </div>
+  <div class="chat-body" #chatBody>
+    <div *ngFor="let message of messages" class="message-wrapper">
+      <div
+        [ngClass]="{
+          message: true,
+          sender: message.type === messageType.SENDER
+        }"
+      >
+        <img
+          *ngIf="message.type !== messageType.SENDER"
+          class="img-fluid rounded-circle"
+          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          alt="avatar"
+          width="35"
+          height="35"
+        />
+        <span class="text-muted">{{ message.content }}</span>
       </div>
     </div>
-    <div class="chat-body" #chatBody>
-      <div *ngFor="let message of messages" class="message-wrapper">
-        <div [ngClass]="{ 'message': true, 'sender': message.type === messageType.SENDER }">
-          <img *ngIf="message.type !== messageType.SENDER" class="img-fluid rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" width="35" height="35">
-          <span class="text-muted">{{message.content}}</span>
-        </div>
-      </div>
+  </div>
+  <div class="chat-footer">
+    <div class="input-group">
+      <input
+        #messageInput
+        type="text"
+        class="form-control"
+        placeholder="Type your message..."
+        (keypress)="onKeyPress($event, messageInput)"
+      />
     </div>
-    <div class="chat-footer">
-      <div class="input-group">
-        <input #messageInput type="text" class="form-control" placeholder="Type your message..." (keypress)="onKeyPress($event, messageInput)">
-      </div>
-    </div>
+  </div>
 </div>

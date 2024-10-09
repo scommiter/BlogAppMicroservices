@@ -13,5 +13,6 @@ namespace Chat.Api.Repositories.Interfaces
         Task<Group?> GetGroupForConnection(string connectionId);
         void AddGroup(Group group);
         void AddMessage(Message mess);
+        Task<int> SaveChangesAsync();
     }
 }

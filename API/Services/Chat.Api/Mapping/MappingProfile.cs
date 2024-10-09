@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Chat.Api.Dtos;
 
 namespace Chat.Api.Mapping
 {
@@ -6,7 +7,7 @@ namespace Chat.Api.Mapping
     {
         public MappingProfile()
         {
-            //CreateMap<Entities.Notification, AddNotificationDto>().ReverseMap();
+            CreateMap<Entities.Message, MessageDto>().ReverseMap();
         }
     }
 }

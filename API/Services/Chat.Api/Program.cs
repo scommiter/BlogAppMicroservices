@@ -13,6 +13,33 @@ builder.Host.UseSerilog(Serilogger.Configure);
 try
 {
     builder.Host.AddAppConfigurations();
+    builder.Services.AddAuthentication("Bearer")
+        .AddJwtBearer("Bearer", options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.Authority = "http://localhost:7000"; //url Identity Server
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false// fix 401 response in docker
+            };
+
+            options.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var accessToken = context.Request.Query["access_token"];
+
+                    var path = context.HttpContext.Request.Path;
+                    if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                    {
+                        context.Token = accessToken;
+                    }
+
+                    return Task.CompletedTask;
+                }
+            };
+        });
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddConfigurationSettings(builder.Configuration);
     builder.Services.AddCors(options =>
@@ -25,58 +52,6 @@ try
                                           .AllowAnyMethod()
                                           .AllowCredentials();
                           });
-    });
-
-    //// Thêm dịch vụ xác thực JWT
-    //builder.Services.AddAuthentication(options =>
-    //{
-    //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    //})
-    //.AddJwtBearer(options =>
-    //{
-    //    // Parmeter check token
-    //    options.TokenValidationParameters = new TokenValidationParameters
-    //    {
-    //        ValidateIssuer = true, // Validate issuer of token
-    //        ValidateAudience = true, // Xác minh audience của token
-    //        ValidateLifetime = true, // Kiểm tra thời hạn của token (token hết hạn sẽ không hợp lệ)
-    //        ValidateIssuerSigningKey = true, // Kiểm tra chữ ký của token
-
-    //        // Issuer và Audience phải khớp với giá trị trong token
-    //        ValidIssuer = "http://localhost:7000", // Địa chỉ của issuer (ví dụ Identity Server)
-    //        ValidAudience = "https://your-api.com", // Đối tượng mà token có thể truy cập (thường là URL của API)
-
-    //        // Khóa bí mật dùng để kiểm tra chữ ký của token
-    //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-secret-key"))
-    //    };
-    //});
-    builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.Authority = builder.Configuration["IdentityServer:BaseUrl"]; //url Identity Server
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateAudience = false,
-            ValidateIssuer = false// fix 401 response in docker
-        };
-
-        options.Events = new JwtBearerEvents
-        {   
-            OnMessageReceived = context =>
-            {
-                var accessToken = context.Request.Query["access_token"];
-
-                var path = context.HttpContext.Request.Path;
-                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
-                {
-                    context.Token = accessToken;
-                }
-
-                return Task.CompletedTask;
-            }
-        };
     });
 
     var app = builder.Build();

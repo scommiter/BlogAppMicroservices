@@ -63,7 +63,7 @@ namespace Chat.Api.SignalR
                     _messageRepository.AddGroup(group);
                 }
                 group.Connections.Add(connection);
-
+                await _messageRepository.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace Chat.Api.SignalR
             }
 
             _messageRepository.AddMessage(message);
-
+            await _messageRepository.SaveChangesAsync();
             try
             {
                 await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));

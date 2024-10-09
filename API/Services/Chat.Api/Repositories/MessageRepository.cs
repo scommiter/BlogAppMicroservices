@@ -25,7 +25,7 @@ namespace Chat.Api.Repositories
         {
             var messages = _context.Messages!
                 .Where(m => m.Receiver == messageParams.CurrentUsername && m.Sender == messageParams.Receiver || m.Receiver == messageParams.Receiver && m.Sender == messageParams.CurrentUsername)
-                .OrderByDescending(m => m.CreatedDate)
+                .OrderBy(m => m.CreatedDate)
                 .ProjectTo<MessageDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
 
@@ -79,5 +79,7 @@ namespace Chat.Api.Repositories
         {
             _context.Messages.Add(mess);
         }
+
+        public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
     }
 }

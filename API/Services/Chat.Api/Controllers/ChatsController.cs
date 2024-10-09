@@ -16,8 +16,8 @@ namespace Chat.Api.Controllers
             _messageRepository = messageRepository;
         }                                                                                                                                                         
 
-        [HttpGet]
-        public async Task<IActionResult> GetMessages([FromQuery] MessageParams messageParams)
+        [HttpGet("getMessages")]
+        public async Task<IActionResult> GetMessages([FromQuery]MessageParams messageParams)
         {
             var data = await _messageRepository.GetMessageThread(messageParams);
             return Ok(data);
