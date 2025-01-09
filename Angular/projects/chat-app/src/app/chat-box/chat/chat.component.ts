@@ -2,8 +2,10 @@ import {
   AfterViewChecked,
   Component,
   ElementRef,
+  EventEmitter,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { MESSAGE_TYPE } from '../../enum/message-type';
@@ -12,6 +14,7 @@ import { AuthLibService } from 'auth-lib';
 import { User } from 'oidc-client-ts';
 import { Subject, takeUntil } from 'rxjs';
 import { PageResultDto } from 'shared-lib';
+import { ChatBoxService } from 'shared-lib';
 import { MessageDto } from '../../models/message';
 
 @Component({
@@ -22,6 +25,7 @@ import { MessageDto } from '../../models/message';
 })
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   messageType = MESSAGE_TYPE;
+  @Output() closeChat = new EventEmitter<void>();
   userName: string = '';
   receiver: string = 'lupan';
   private ngUnsubscribe = new Subject<void>();
@@ -39,8 +43,9 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   private _user!: User;
 
   constructor(
-    public messageService: MessageService,
-    public authService: AuthLibService
+    private messageService: MessageService,
+    private authService: AuthLibService,
+    private chatBoxService: ChatBoxService
   ) {}
 
   ngOnInit(): void {
@@ -91,10 +96,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   closeModal() {
-    const modal = document.getElementById('myModal');
-    if (modal) {
-      modal.style.display = 'none';
-    }
+    this.chatBoxService.closeChat();
   }
 
   private sendMessage(input: HTMLInputElement): void {

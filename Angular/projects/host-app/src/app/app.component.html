@@ -1,9 +1,10 @@
 <app-nav></app-nav>
 <router-outlet></router-outlet>
-<federated-component 
-    *ngIf="showFederatedComponent"
-    remoteEntry="http://localhost:4300/remoteEntry.js" 
-    remoteName="chatApp" 
-    exposedModule="ChatBoxModule" 
-    componentName="ChatComponent">
+<federated-component
+  *ngIf="showFederatedComponent"
+  remoteEntry="http://localhost:4300/remoteEntry.js"
+  remoteName="chatApp"
+  exposedModule="ChatBoxModule"
+  componentName="ChatComponent"
+>
 </federated-component>

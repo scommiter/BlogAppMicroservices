@@ -7,4 +7,4 @@ export * from './lib/shared-lib.component';
 export * from './lib/shared-lib.module';
 export * from './lib/models/page-result.dto';
 export * from './lib/models/paging-request';
-export * from './lib/services/message.service';
+export * from './lib/services/chat-box.service';

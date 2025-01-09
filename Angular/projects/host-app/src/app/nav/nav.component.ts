@@ -1,50 +1,53 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { AuthLibService } from 'auth-lib';
 import { RemoteLoaderService } from '../../services/remote-loader.service';
 import { REMOTE_PORT } from '../../shared/constants/remote.constant';
 import { Router } from '@angular/router';
 import { FederatedComponentService } from '../../services/federated.service';
 import { AppComponent } from '../app.component';
-import { MessageService } from '../../../../shared-lib/src/lib/services/message.service';
+import { ChatBoxService } from 'shared-lib';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrl: './nav.component.scss'
+  styleUrl: './nav.component.scss',
 })
-export class NavComponent implements OnInit{
+export class NavComponent implements OnInit {
   token!: any;
-  @ViewChild('remoteContainer', { read: ViewContainerRef }) remoteContainer!: ViewContainerRef;
-  
+  @ViewChild('remoteContainer', { read: ViewContainerRef })
+  remoteContainer!: ViewContainerRef;
+
   constructor(
     public authService: AuthLibService,
-    public messageService: MessageService,
+    public chatboxService: ChatBoxService,
     public remoteLoaderService: RemoteLoaderService,
     private router: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
     private federatedComponentService: FederatedComponentService,
     private appComponent: AppComponent
-    ) {
-  }
+  ) {}
   ngOnInit(): void {
     this.token = this.authService.getToken;
   }
 
-  async login(){
-    await this.authService.login()
+  async login() {
+    await this.authService.login();
     //after login, redict to AuthCallbackComponent
   }
 
-  async logout(){
-    await this.authService.signout()    
+  async logout() {
+    await this.authService.signout();
   }
 
-  async register(){
-      
-  }
+  async register() {}
 
   showFederatedComponent(): void {
-    // this.federatedComponentService.setShowFederatedComponent(true);
     this.appComponent.openFederatedComponent();
   }
   // loadRemoteModule(): void {
@@ -58,5 +61,4 @@ export class NavComponent implements OnInit{
   //       console.error('Error loading remote module:', error);
   //     });
   // }
-
 }
